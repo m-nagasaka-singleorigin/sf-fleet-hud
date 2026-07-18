@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Saira_Condensed, Share_Tech_Mono } from "next/font/google";
+import { HudToaster } from "@/registry/hud/hud-sonner";
 import "./globals.css";
 
 const sairaCondensed = Saira_Condensed({
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${sairaCondensed.variable} ${shareTechMono.variable} antialiased`}
       >
         {children}
+        <HudToaster />
       </body>
     </html>
   );

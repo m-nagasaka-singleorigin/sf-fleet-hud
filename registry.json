@@ -333,6 +333,116 @@
       "dependencies": [
         "class-variance-authority"
       ]
+    },
+    {
+      "name": "hud-dialog",
+      "type": "registry:ui",
+      "title": "HUD Dialog",
+      "description": "Corner-bracketed modal with header/body/footer and mono close glyph.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ]
+    },
+    {
+      "name": "hud-sheet",
+      "type": "registry:ui",
+      "title": "HUD Sheet",
+      "description": "Side drawer panel: 280px, hairline dividers, mono accent title.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "hud-tooltip",
+      "type": "registry:ui",
+      "title": "HUD Tooltip",
+      "description": "Dark mono tooltip with arrow.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-tooltip"
+      ]
+    },
+    {
+      "name": "hud-context-menu",
+      "type": "registry:ui",
+      "title": "HUD Context Menu",
+      "description": "Right-click menu: mono rows, shortcut hints, destructive variant.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-context-menu"
+      ]
+    },
+    {
+      "name": "hud-sonner",
+      "type": "registry:ui",
+      "title": "HUD Toaster",
+      "description": "Sonner toast stack in HUD style: accent left rail, glyph icons.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-sonner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "sonner"
+      ]
+    },
+    {
+      "name": "hud-command",
+      "type": "registry:ui",
+      "title": "HUD Command",
+      "description": "Command palette (cmdk): > prompt, accent active rail, hint footer.",
+      "registryDependencies": [
+        "utils",
+        "https://sf-fleet-hud.vercel.app/r/hud-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-command.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "cmdk"
+      ]
     }
   ]
 }

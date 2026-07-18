@@ -32,6 +32,53 @@ import {
 } from "@/registry/hud/hud-select"
 import { HudTabs, HudTabsList, HudTabsTrigger, HudTabsContent } from "@/registry/hud/hud-tabs"
 import { HudAlert, HudAlertTitle, HudAlertDescription } from "@/registry/hud/hud-alert"
+import {
+  HudDialog,
+  HudDialogTrigger,
+  HudDialogContent,
+  HudDialogHeader,
+  HudDialogTitle,
+  HudDialogCloseButton,
+  HudDialogDescription,
+  HudDialogBody,
+  HudDialogFooter,
+  HudDialogClose,
+} from "@/registry/hud/hud-dialog"
+import {
+  HudSheet,
+  HudSheetTrigger,
+  HudSheetContent,
+  HudSheetHeader,
+  HudSheetTitle,
+  HudSheetCloseButton,
+  HudSheetBody,
+  HudSheetFooter,
+} from "@/registry/hud/hud-sheet"
+import {
+  HudTooltipProvider,
+  HudTooltip,
+  HudTooltipTrigger,
+  HudTooltipContent,
+} from "@/registry/hud/hud-tooltip"
+import {
+  HudContextMenu,
+  HudContextMenuTrigger,
+  HudContextMenuContent,
+  HudContextMenuItem,
+  HudContextMenuSeparator,
+  HudContextMenuShortcut,
+} from "@/registry/hud/hud-context-menu"
+import {
+  HudCommand,
+  HudCommandInput,
+  HudCommandList,
+  HudCommandEmpty,
+  HudCommandGroup,
+  HudCommandItem,
+  HudCommandShortcut,
+  HudCommandFooter,
+} from "@/registry/hud/hud-command"
+import { ToastDemo } from "@/components/toast-demo"
 
 function Section({
   index,
@@ -296,6 +343,147 @@ export default function Home() {
               </HudAlertDescription>
             </HudAlert>
           </div>
+        </Section>
+        <Section index="16" title="Dialog" name="hud-dialog">
+          <HudDialog>
+            <HudDialogTrigger asChild>
+              <HudButton variant="outline">Open Dialog</HudButton>
+            </HudDialogTrigger>
+            <HudDialogContent>
+              <HudDialogHeader>
+                <HudDialogTitle>Confirm Launch Order</HudDialogTitle>
+                <HudDialogCloseButton />
+              </HudDialogHeader>
+              <HudDialogBody>
+                <HudDialogDescription>
+                  Wing 09 will be committed to grid D2. This order cannot be
+                  recalled after execution.
+                </HudDialogDescription>
+                <div className="mt-3 flex items-center gap-2 border border-primary/45 px-2.5 py-2">
+                  <span className="font-mono text-[10px] text-primary">◆</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#9AA0A4]">
+                    Auth code required — clearance A-1
+                  </span>
+                </div>
+              </HudDialogBody>
+              <HudDialogFooter>
+                <HudDialogClose asChild>
+                  <HudButton variant="ghost" size="sm">
+                    Abort
+                  </HudButton>
+                </HudDialogClose>
+                <HudButton size="sm">Execute</HudButton>
+              </HudDialogFooter>
+            </HudDialogContent>
+          </HudDialog>
+        </Section>
+
+        <Section index="17" title="Sheet" name="hud-sheet">
+          <HudSheet>
+            <HudSheetTrigger asChild>
+              <HudButton variant="outline">Open Unit Detail</HudButton>
+            </HudSheetTrigger>
+            <HudSheetContent>
+              <HudSheetHeader>
+                <HudSheetTitle>Unit D-0117 // Detail</HudSheetTitle>
+                <HudSheetCloseButton />
+              </HudSheetHeader>
+              <HudSheetBody>
+                {(
+                  [
+                    ["Wing", "Nova Wing"],
+                    ["Vector", "224.081 / +12.4°"],
+                    ["Ping", "12ms"],
+                  ] as const
+                ).map(([k, v]) => (
+                  <div key={k} className="flex justify-between">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5A6065]">
+                      {k}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase text-[#C8CCCE]">
+                      {v}
+                    </span>
+                  </div>
+                ))}
+                <TelemetryBar label="Signal" value={92} className="mt-1" />
+              </HudSheetBody>
+              <HudSheetFooter>
+                <HudButton variant="outline" size="sm" className="w-full">
+                  Open Full Record
+                </HudButton>
+              </HudSheetFooter>
+            </HudSheetContent>
+          </HudSheet>
+        </Section>
+
+        <Section index="18" title="Tooltip" name="hud-tooltip">
+          <HudTooltipProvider>
+            <HudTooltip>
+              <HudTooltipTrigger asChild>
+                <span className="cursor-help border-b border-dashed border-[#4A5054] pb-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#8A9094]">
+                  Relay 3 Status
+                </span>
+              </HudTooltipTrigger>
+              <HudTooltipContent side="top">
+                LAST HANDSHAKE 13:58:44 UTC
+              </HudTooltipContent>
+            </HudTooltip>
+          </HudTooltipProvider>
+        </Section>
+
+        <Section index="19" title="Toast" name="hud-sonner">
+          <ToastDemo />
+        </Section>
+
+        <Section index="20" title="Context Menu" name="hud-context-menu">
+          <HudContextMenu>
+            <HudContextMenuTrigger asChild>
+              <div className="grid h-28 w-full max-w-sm place-items-center border border-dashed border-[#2E3236] font-mono text-[9px] uppercase tracking-[0.14em] text-[#4A5054]">
+                Right-click this zone
+              </div>
+            </HudContextMenuTrigger>
+            <HudContextMenuContent>
+              <HudContextMenuItem>
+                Trace Unit
+                <HudContextMenuShortcut>⌘T</HudContextMenuShortcut>
+              </HudContextMenuItem>
+              <HudContextMenuItem>
+                Copy Vector
+                <HudContextMenuShortcut>⌘C</HudContextMenuShortcut>
+              </HudContextMenuItem>
+              <HudContextMenuSeparator />
+              <HudContextMenuItem variant="destructive">
+                Decommission
+                <HudContextMenuShortcut>⌘⌫</HudContextMenuShortcut>
+              </HudContextMenuItem>
+            </HudContextMenuContent>
+          </HudContextMenu>
+        </Section>
+
+        <Section index="21" title="Command Palette" name="hud-command">
+          <HudCommand className="max-w-[560px]">
+            <HudCommandInput placeholder="TYPE A COMMAND…" />
+            <HudCommandList>
+              <HudCommandEmpty>No results found.</HudCommandEmpty>
+              <HudCommandGroup heading="Commands">
+                <HudCommandItem>
+                  REASSIGN WING 09 → GRID…
+                  <HudCommandShortcut>⏎</HudCommandShortcut>
+                </HudCommandItem>
+                <HudCommandItem>
+                  RECALL WING — ALL PATROLS
+                  <HudCommandShortcut>⌘R</HudCommandShortcut>
+                </HudCommandItem>
+              </HudCommandGroup>
+              <HudCommandGroup heading="Navigate">
+                <HudCommandItem>
+                  WING 09 — UNIT DETAIL
+                  <HudCommandShortcut>↗</HudCommandShortcut>
+                </HudCommandItem>
+              </HudCommandGroup>
+            </HudCommandList>
+            <HudCommandFooter />
+          </HudCommand>
         </Section>
       </main>
 
