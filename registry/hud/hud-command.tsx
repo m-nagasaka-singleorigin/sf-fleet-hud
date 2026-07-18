@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import {
   HudDialog,
   HudDialogContent,
+  HudDialogDescription,
   HudDialogTitle,
 } from "@/registry/hud/hud-dialog"
 
@@ -24,13 +25,15 @@ function HudCommand({ className, ...props }: React.ComponentProps<typeof Command
 
 function HudCommandDialog({
   title = "Command Palette",
+  description = "Search for a command to run",
   children,
   ...props
-}: React.ComponentProps<typeof HudDialog> & { title?: string }) {
+}: React.ComponentProps<typeof HudDialog> & { title?: string; description?: string }) {
   return (
     <HudDialog {...props}>
       <HudDialogContent className="max-w-[560px] border-none p-0 shadow-none before:hidden after:hidden">
         <HudDialogTitle className="sr-only">{title}</HudDialogTitle>
+        <HudDialogDescription className="sr-only">{description}</HudDialogDescription>
         <HudCommand>{children}</HudCommand>
       </HudDialogContent>
     </HudDialog>

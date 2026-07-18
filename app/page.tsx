@@ -52,6 +52,7 @@ import {
   HudSheetHeader,
   HudSheetTitle,
   HudSheetCloseButton,
+  HudSheetDescription,
   HudSheetBody,
   HudSheetFooter,
 } from "@/registry/hud/hud-sheet"
@@ -437,6 +438,9 @@ export default function Home() {
                 <HudSheetTitle>Unit D-0117 // Detail</HudSheetTitle>
                 <HudSheetCloseButton />
               </HudSheetHeader>
+              <HudSheetDescription className="sr-only">
+                Telemetry detail for unit D-0117
+              </HudSheetDescription>
               <HudSheetBody>
                 {(
                   [
