@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radar",
+  "type": "registry:ui",
+  "title": "Radar",
+  "description": "Decorative sector-scan radar with rotating sweep and pulsing blips.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/radar.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nconst BLIPS: Array<[string, string, string, boolean]> = [\n  [\"22%\", \"61%\", \"0s\", true],\n  [\"34%\", \"28%\", \"0.6s\", false],\n  [\"58%\", \"70%\", \"1.1s\", false],\n  [\"66%\", \"38%\", \"1.7s\", true],\n  [\"44%\", \"52%\", \"2.1s\", false],\n]\n\n// Decorative. Hidden from AT; pair with a visible data readout.\nfunction Radar({ className, size = 280, ...props }: React.ComponentProps<\"div\"> & { size?: number }) {\n  return (\n    <div aria-hidden className={cn(\"relative\", className)} style={{ width: size, height: size }} {...props}>\n      <div className=\"absolute inset-0 rounded-full border border-[#33383C]\" />\n      <div className=\"absolute inset-[18%] rounded-full border border-border\" />\n      <div className=\"absolute inset-[36%] rounded-full border border-dashed border-border\" />\n      <div className=\"absolute inset-x-0 top-1/2 h-px bg-[#1D2023]\" />\n      <div className=\"absolute inset-y-0 left-1/2 w-px bg-[#1D2023]\" />\n      <div\n        className=\"absolute inset-0 rounded-full motion-safe:animate-[hud-rot_4s_linear_infinite]\"\n        style={{ background: \"conic-gradient(from 0deg, transparent 78%, color-mix(in srgb, var(--primary) 22%, transparent) 100%)\" }}\n      />\n      {BLIPS.map(([top, left, delay, hot], i) => (\n        <span\n          key={i}\n          className={cn(\"absolute size-[5px] rounded-full motion-safe:animate-[hud-pulse_2.4s_ease-in-out_infinite]\", hot ? \"bg-primary shadow-[0_0_5px_var(--primary)]\" : \"bg-[#9AA0A4] shadow-[0_0_5px_#9AA0A4]\")}\n          style={{ top, left, animationDelay: delay }}\n        />\n      ))}\n      <span className=\"absolute left-1/2 top-1/2 -ml-0.5 -mt-0.5 size-1 bg-primary\" />\n      <style>{\"@keyframes hud-rot{to{transform:rotate(360deg)}}@keyframes hud-pulse{0%,100%{opacity:.9}50%{opacity:.35}}\"}</style>\n    </div>\n  )\n}\n\nexport { Radar }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

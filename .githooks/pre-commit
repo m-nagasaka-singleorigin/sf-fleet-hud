@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Reject commits that would introduce franchise-derived terms.
+exec bash "$(git rev-parse --show-toplevel)/scripts/check-ip.sh" --staged

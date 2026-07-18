@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segment-bar",
+  "type": "registry:ui",
+  "title": "Segment Bar",
+  "description": "Segmented capacity indicator.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/segment-bar.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction SegmentBar({ className, segments = 10, filled = 0, ...props }: React.ComponentProps<\"div\"> & { segments?: number; filled?: number }) {\n  return (\n    <div className={cn(\"flex gap-[3px]\", className)} role=\"meter\" aria-valuemin={0} aria-valuemax={segments} aria-valuenow={filled} {...props}>\n      {Array.from({ length: segments }, (_, i) => (\n        <span key={i} className={cn(\"h-2 flex-1\", i < filled ? \"bg-primary\" : \"bg-[#1D2023]\")} />\n      ))}\n    </div>\n  )\n}\n\nexport { SegmentBar }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

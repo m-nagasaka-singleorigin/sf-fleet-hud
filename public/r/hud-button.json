@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-button",
+  "type": "registry:ui",
+  "title": "HUD Button",
+  "description": "Corner-clipped primary, outline, ghost, destructive variants. Condensed uppercase.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-button.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst CLIP = \"[clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]\"\n\nconst hudButtonVariants = cva(\n  \"inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans uppercase tracking-[0.14em] cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-1 focus-visible:ring-ring\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground font-semibold hover:bg-[#FFA05C] \" + CLIP,\n        secondary: \"bg-secondary text-foreground font-medium hover:bg-[#33383C]\",\n        outline: \"border border-[#3A3E42] bg-transparent text-[#C8CCCE] font-medium hover:border-primary hover:text-primary\",\n        ghost: \"bg-transparent text-muted-foreground font-medium hover:text-foreground\",\n        destructive: \"border border-destructive/60 bg-transparent text-destructive font-semibold hover:bg-destructive/10\",\n      },\n      size: {\n        default: \"h-9 px-6 text-sm\",\n        sm: \"h-7 px-4 text-xs\",\n        lg: \"h-12 px-9 text-base tracking-[0.16em]\",\n        icon: \"size-9 font-mono normal-case\",\n      },\n    },\n    defaultVariants: { variant: \"default\", size: \"default\" },\n  }\n)\n\nfunction HudButton({ className, variant, size, ...props }: React.ComponentProps<\"button\"> & VariantProps<typeof hudButtonVariants>) {\n  return <button className={cn(hudButtonVariants({ variant, size }), className)} {...props} />\n}\n\nexport { HudButton, hudButtonVariants }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

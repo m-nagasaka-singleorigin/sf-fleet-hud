@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-panel",
+  "type": "registry:ui",
+  "title": "HUD Panel",
+  "description": "Card panel with optional orange corner brackets, header/content/footer.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-panel.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudPanel({ className, brackets = false, children, ...props }: React.ComponentProps<\"div\"> & { brackets?: boolean }) {\n  return (\n    <div className={cn(\"relative border border-border bg-card\", className)} {...props}>\n      {brackets && (\n        <>\n          <span aria-hidden className=\"pointer-events-none absolute -top-px -left-px size-2.5 border-t border-l border-primary\" />\n          <span aria-hidden className=\"pointer-events-none absolute -bottom-px -right-px size-2.5 border-b border-r border-primary\" />\n        </>\n      )}\n      {children}\n    </div>\n  )\n}\n\nfunction HudPanelHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"flex items-center justify-between border-b border-[#1D2023] px-4 py-3\", className)} {...props} />\n}\n\nfunction HudPanelTitle({ className, ...props }: React.ComponentProps<\"h4\">) {\n  return <h4 className={cn(\"m-0 font-sans text-[15px] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]\", className)} {...props} />\n}\n\nfunction HudPanelMeta({ className, ...props }: React.ComponentProps<\"span\">) {\n  return <span className={cn(\"font-mono text-[9px] uppercase tracking-[0.16em] text-[#5A6065]\", className)} {...props} />\n}\n\nfunction HudPanelContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"px-4 py-3.5\", className)} {...props} />\n}\n\nfunction HudPanelFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"flex items-center justify-between border-t border-[#1D2023] px-4 py-2.5\", className)} {...props} />\n}\n\nexport { HudPanel, HudPanelHeader, HudPanelTitle, HudPanelMeta, HudPanelContent, HudPanelFooter }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

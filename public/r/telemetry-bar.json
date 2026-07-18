@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "telemetry-bar",
+  "type": "registry:ui",
+  "title": "Telemetry Bar",
+  "description": "3px labelled progress bar with mono label/value row.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/telemetry-bar.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction TelemetryBar({ className, label, value, max = 100, unit = \"%\", warn = false, ...props }: React.ComponentProps<\"div\"> & { label: string; value: number; max?: number; unit?: string; warn?: boolean }) {\n  const pct = Math.max(0, Math.min(100, (value / max) * 100))\n  return (\n    <div className={cn(\"w-full\", className)} {...props}>\n      <div className=\"flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]\">\n        <span>{label}</span>\n        <span className={warn ? \"text-primary\" : \"text-[#C8CCCE]\"}>{value}{unit}</span>\n      </div>\n      <div className=\"mt-1.5 h-[3px] bg-[#1D2023]\">\n        <div className={cn(\"h-full\", warn ? \"bg-primary\" : \"bg-[#8A9094]\")} style={{ width: pct + \"%\" }} />\n      </div>\n    </div>\n  )\n}\n\nexport { TelemetryBar }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-hud",
+  "type": "registry:theme",
+  "title": "HUD Theme",
+  "description": "Dark sci-fi ops theme: monochrome + orange accent, radius 0, 'Saira Condensed' + 'Share Tech Mono'.",
+  "cssVars": {
+    "theme": {
+      "font-sans": "'Saira Condensed', sans-serif",
+      "font-mono": "'Share Tech Mono', monospace",
+      "radius": "0rem"
+    },
+    "dark": {
+      "background": "#0A0B0C",
+      "foreground": "#E8ECEE",
+      "card": "#0F1113",
+      "card-foreground": "#D4D8DA",
+      "popover": "#0C0E10",
+      "popover-foreground": "#E8ECEE",
+      "primary": "#FF7A29",
+      "primary-foreground": "#0A0B0C",
+      "secondary": "#26292C",
+      "secondary-foreground": "#C8CCCE",
+      "muted": "#14171A",
+      "muted-foreground": "#7A8085",
+      "accent": "#14171A",
+      "accent-foreground": "#E8ECEE",
+      "destructive": "#E5484D",
+      "destructive-foreground": "#E8ECEE",
+      "border": "#26292C",
+      "input": "#3A3E42",
+      "ring": "#FF7A29"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-skeleton",
+  "type": "registry:ui",
+  "title": "HUD Skeleton",
+  "description": "Skeleton block with fixed-width shimmer clipped inside each block.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-skeleton.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\n// Shimmer is a FIXED 180px-wide gradient swept via background-position,\n// clipped inside each block (overflow-hidden) so speed is uniform across widths.\nfunction HudSkeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div className={cn(\"relative overflow-hidden bg-[#1A1D20]\", className)} {...props}>\n      <span\n        aria-hidden\n        className=\"block size-full motion-safe:animate-[hud-skel_1.8s_linear_infinite]\"\n        style={{\n          background: \"linear-gradient(100deg, transparent 35%, rgba(220,228,234,0.09) 50%, transparent 65%)\",\n          backgroundSize: \"180px 100%\",\n          backgroundRepeat: \"no-repeat\",\n        }}\n      />\n      <style>{\"@keyframes hud-skel{from{background-position:-180px 0}to{background-position:320px 0}}\"}</style>\n    </div>\n  )\n}\n\nexport { HudSkeleton }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

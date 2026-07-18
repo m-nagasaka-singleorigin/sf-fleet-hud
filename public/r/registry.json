@@ -1,0 +1,182 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "hud",
+  "homepage": "https://sf-fleet-hud.vercel.app",
+  "items": [
+    {
+      "name": "theme-hud",
+      "type": "registry:theme",
+      "title": "HUD Theme",
+      "description": "Dark sci-fi ops theme: monochrome + orange accent, radius 0, condensed sans + terminal mono.",
+      "cssVars": {
+        "theme": {
+          "font-sans": "'Saira Condensed', sans-serif",
+          "font-mono": "'Share Tech Mono', monospace",
+          "radius": "0rem"
+        },
+        "dark": {
+          "background": "#0A0B0C",
+          "foreground": "#E8ECEE",
+          "card": "#0F1113",
+          "card-foreground": "#D4D8DA",
+          "popover": "#0C0E10",
+          "popover-foreground": "#E8ECEE",
+          "primary": "#FF7A29",
+          "primary-foreground": "#0A0B0C",
+          "secondary": "#26292C",
+          "secondary-foreground": "#C8CCCE",
+          "muted": "#14171A",
+          "muted-foreground": "#7A8085",
+          "accent": "#14171A",
+          "accent-foreground": "#E8ECEE",
+          "destructive": "#E5484D",
+          "destructive-foreground": "#E8ECEE",
+          "border": "#26292C",
+          "input": "#3A3E42",
+          "ring": "#FF7A29"
+        }
+      }
+    },
+    {
+      "name": "hud-button",
+      "type": "registry:ui",
+      "title": "HUD Button",
+      "description": "Corner-clipped primary, outline, ghost, destructive variants. Condensed uppercase.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-panel",
+      "type": "registry:ui",
+      "title": "HUD Panel",
+      "description": "Card panel with optional orange corner brackets, header/content/footer.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "status-badge",
+      "type": "registry:ui",
+      "title": "Status Badge",
+      "description": "Square mono badges: engaged / priority / patrol / standby / critical (+ blinking dot).",
+      "registryDependencies": [
+        "utils"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/status-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "telemetry-bar",
+      "type": "registry:ui",
+      "title": "Telemetry Bar",
+      "description": "3px labelled progress bar with mono label/value row.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/telemetry-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segment-bar",
+      "type": "registry:ui",
+      "title": "Segment Bar",
+      "description": "Segmented capacity indicator.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/segment-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Keyboard shortcut chip.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-skeleton",
+      "type": "registry:ui",
+      "title": "HUD Skeleton",
+      "description": "Skeleton block with fixed-width shimmer clipped inside each block.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radar",
+      "type": "registry:ui",
+      "title": "Radar",
+      "description": "Decorative sector-scan radar with rotating sweep and pulsing blips.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/radar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gyro",
+      "type": "registry:ui",
+      "title": "Gyro",
+      "description": "Decorative 3D ship-gyro attitude widget.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/gyro.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
