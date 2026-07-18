@@ -16,9 +16,21 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://sf-fleet-hud.vercel.app"
+  ),
   title: "SF FLEET HUD — shadcn/ui registry",
   description:
     "Dark sci-fi fleet-ops UI kit for shadcn/ui. Monochrome + orange accent, radius 0, condensed sans + terminal mono.",
+  openGraph: {
+    title: "SF Fleet HUD",
+    description:
+      "Dark sci-fi fleet-ops UI kit for shadcn/ui. 42 components, dark-only, MIT.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

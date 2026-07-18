@@ -119,6 +119,9 @@ import {
 } from "@/registry/hud/hud-avatar"
 import { HudSlider } from "@/registry/hud/hud-slider"
 import { OtpDemo } from "@/components/otp-demo"
+import { ComboboxDemo } from "@/components/combobox-demo"
+import { CopyCommand } from "@/components/copy-command"
+import { EffectsToggles } from "@/components/effects-toggles"
 import { HudCalendar } from "@/registry/hud/hud-calendar"
 import { HudGauge } from "@/registry/hud/hud-gauge"
 import { HudSparkline } from "@/registry/hud/hud-sparkline"
@@ -147,7 +150,7 @@ function Section({
           {title}
         </HudPanelTitle>
         <div className="flex items-center gap-3">
-          <HudPanelMeta>npx shadcn add {name}</HudPanelMeta>
+          <CopyCommand name={name} />
           <OpenInV0Button name={name} />
         </div>
       </HudPanelHeader>
@@ -172,7 +175,67 @@ export default function Home() {
           Dark sci-fi fleet-ops UI kit for shadcn/ui. Monochrome + orange
           accent, radius 0, condensed sans + terminal mono.
         </p>
+        <div className="mt-2">
+          <EffectsToggles />
+        </div>
       </header>
+
+      <HudPanel brackets>
+        <HudPanelHeader>
+          <HudPanelTitle>
+            <span className="mr-2 font-mono text-[10px] text-primary">◆</span>
+            Command Deck — Live Composite
+          </HudPanelTitle>
+          <div className="flex items-center gap-2">
+            <StatusBadge variant="live" dot>
+              Live
+            </StatusBadge>
+            <StatusBadge variant="priority">Sector 7</StatusBadge>
+          </div>
+        </HudPanelHeader>
+        <HudPanelContent className="grid gap-5 lg:grid-cols-[auto_1fr_1fr]">
+          <div className="flex items-center justify-center">
+            <Radar size={200} />
+          </div>
+          <div className="flex flex-col justify-center gap-4">
+            <div className="flex items-center gap-5">
+              <HudGauge value={68} label="Thrust" size={92} />
+              <div className="flex-1">
+                <div className="font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+                  Throughput
+                </div>
+                <div className="mt-1.5 flex items-end justify-between gap-2.5">
+                  <span className="font-sans text-[26px] leading-none font-semibold text-foreground">
+                    4.2K
+                  </span>
+                  <HudSparkline values={[6, 10, 8, 16, 12, 20, 16, 24]} />
+                </div>
+              </div>
+            </div>
+            <TelemetryBar label="Hull Integrity" value={92} />
+            <TelemetryBar label="Reactor Load" value={67} />
+            <TelemetryBar label="O2 Reserve" value={23} warn />
+            <SegmentBar segments={16} filled={11} />
+          </div>
+          <div className="border-l border-[#1D2023] pl-5">
+            <HudTimeline>
+              <HudTimelineItem variant="accent" time="14:02:11" title="Weapons Free Authorized">
+                WING 09 → GRID D2 // AUTH A-1
+              </HudTimelineItem>
+              <HudTimelineItem variant="destructive" time="14:01:30" title="Telemetry Dropout">
+                WING 07 // AUTO-RETRY SCHEDULED
+              </HudTimelineItem>
+              <HudTimelineItem variant="muted" time="13:59:12" title="Sensor Sweep Complete" last>
+                27 CONTACTS // 4 FLAGGED
+              </HudTimelineItem>
+            </HudTimeline>
+          </div>
+        </HudPanelContent>
+        <HudPanelFooter>
+          <HudPanelMeta>Composed from hud-panel · radar · gauge · sparkline · telemetry-bar · timeline</HudPanelMeta>
+          <HudKbd>⌘K</HudKbd>
+        </HudPanelFooter>
+      </HudPanel>
 
       <main className="flex flex-col gap-6">
         <Section index="01" title="HUD Button" name="hud-button">
@@ -711,7 +774,14 @@ export default function Home() {
         <Section index="27" title="Input OTP" name="hud-input-otp">
           <OtpDemo />
         </Section>
-        <Section index="28" title="Gauge / Sparkline / Heatmap" name="hud-gauge">
+        <Section index="28" title="Combobox (Popover + Command)" name="hud-popover">
+          <div className="flex flex-col gap-1.5">
+            <HudLabel>Commander (Searchable)</HudLabel>
+            <ComboboxDemo />
+          </div>
+        </Section>
+
+        <Section index="29" title="Gauge / Sparkline / Heatmap" name="hud-gauge">
           <div className="flex w-full flex-wrap items-start gap-8">
             <HudGauge value={68} label="Thrust" />
             <div className="border border-border bg-[#0F1113] px-3.5 py-3">
@@ -740,7 +810,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section index="29" title="Timeline + Tree" name="hud-timeline">
+        <Section index="30" title="Timeline + Tree" name="hud-timeline">
           <div className="grid w-full gap-4 md:grid-cols-2">
             <div className="border border-border bg-[#0F1113] px-4 py-4">
               <HudTimeline>
@@ -772,7 +842,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section index="30" title="Dropzone + Stepper" name="hud-dropzone">
+        <Section index="31" title="Dropzone + Stepper" name="hud-dropzone">
           <div className="grid w-full items-start gap-6 md:grid-cols-2">
             <div className="flex flex-col gap-2.5">
               <HudDropzone
