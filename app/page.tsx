@@ -123,6 +123,13 @@ import {
   HudInputOTPSeparator,
 } from "@/registry/hud/hud-input-otp"
 import { HudCalendar } from "@/registry/hud/hud-calendar"
+import { HudGauge } from "@/registry/hud/hud-gauge"
+import { HudSparkline } from "@/registry/hud/hud-sparkline"
+import { HudHeatmap } from "@/registry/hud/hud-heatmap"
+import { HudTimeline, HudTimelineItem } from "@/registry/hud/hud-timeline"
+import { HudTree, HudTreeBranch, HudTreeLeaf } from "@/registry/hud/hud-tree"
+import { HudDropzone } from "@/registry/hud/hud-dropzone"
+import { HudStepper, HudStep, HudStepSeparator } from "@/registry/hud/hud-stepper"
 
 function Section({
   index,
@@ -717,6 +724,114 @@ export default function Home() {
             <span className="ml-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[#4A5054]">
               Expires 00:47
             </span>
+          </div>
+        </Section>
+        <Section index="28" title="Gauge / Sparkline / Heatmap" name="hud-gauge">
+          <div className="flex w-full flex-wrap items-start gap-8">
+            <HudGauge value={68} label="Thrust" />
+            <div className="border border-border bg-[#0F1113] px-3.5 py-3">
+              <div className="font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+                Throughput
+              </div>
+              <div className="mt-1.5 flex items-end justify-between gap-2.5">
+                <span className="font-sans text-[26px] leading-none font-semibold text-foreground">
+                  4.2K
+                </span>
+                <HudSparkline values={[6, 10, 8, 16, 12, 20, 16, 24]} />
+              </div>
+            </div>
+            <div className="min-w-[220px] flex-1 border border-border bg-[#0F1113] px-3.5 py-3">
+              <div className="flex justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+                <span>Activity Matrix</span>
+                <span className="text-[#4A5054]">LOW ▢▤▦█ HIGH</span>
+              </div>
+              <HudHeatmap
+                className="mt-2.5"
+                values={[0.08, 0.3, 0.55, 0.18, 0, 0.4, 0.75, 0.9, 0.45, 0.12, 0, 0.25,
+                  0, 0.15, 0.35, 0.6, 0.85, 0.5, 0.2, 0.08, 0, 0.3, 0.65, 0.4,
+                  0.22, 0, 0.1, 0.28, 0.55, 0.7, 0.95, 0.6, 0.32, 0.14, 0.42, 0]}
+              />
+            </div>
+          </div>
+        </Section>
+
+        <Section index="29" title="Timeline + Tree" name="hud-timeline">
+          <div className="grid w-full gap-4 md:grid-cols-2">
+            <div className="border border-border bg-[#0F1113] px-4 py-4">
+              <HudTimeline>
+                <HudTimelineItem variant="accent" time="14:02:11" title="Weapons Free Authorized">
+                  BY CMDR HALE // WING 09 → GRID D2 // AUTH A-1
+                </HudTimelineItem>
+                <HudTimelineItem variant="destructive" time="14:01:30" title="Telemetry Dropout — Wing 07">
+                  LAST VECTOR 224.081 // AUTO-RETRY SCHEDULED
+                </HudTimelineItem>
+                <HudTimelineItem variant="muted" time="13:59:12" title="Sensor Sweep Complete" last>
+                  RANGE 40K // 27 CONTACTS // 4 FLAGGED
+                </HudTimelineItem>
+              </HudTimeline>
+            </div>
+            <div className="border border-border bg-[#0F1113] px-4 py-3">
+              <HudTree>
+                <HudTreeBranch label="Orbital Station">
+                  <HudTreeBranch label="Sector 7">
+                    <HudTreeLeaf selected>Wing 09 — Nova</HudTreeLeaf>
+                    <HudTreeLeaf>Wing 07 — Kestrel</HudTreeLeaf>
+                    <HudTreeLeaf>Wing 04 — Vanta</HudTreeLeaf>
+                  </HudTreeBranch>
+                  <HudTreeBranch label="Sector 4" defaultOpen={false}>
+                    <HudTreeLeaf>Wing 12 — Aurora</HudTreeLeaf>
+                  </HudTreeBranch>
+                </HudTreeBranch>
+              </HudTree>
+            </div>
+          </div>
+        </Section>
+
+        <Section index="30" title="Dropzone + Stepper" name="hud-dropzone">
+          <div className="grid w-full items-start gap-6 md:grid-cols-2">
+            <div className="flex flex-col gap-2.5">
+              <HudDropzone
+                title="Drop Telemetry File"
+                hint=".TLM .CSV — MAX 40MB — BROWSE"
+                accept=".tlm,.csv"
+              />
+              <div className="border border-border bg-[#0F1113] px-3 py-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] tracking-[0.08em] text-[#C8CCCE]">
+                    sortie_log_0713.tlm
+                  </span>
+                  <span className="font-mono text-[9px] text-primary">64%</span>
+                </div>
+                <div className="mt-1.5 h-[3px] bg-[#1D2023]">
+                  <div className="h-full w-[64%] bg-primary" />
+                </div>
+                <div className="mt-1 flex justify-between font-mono text-[8px] text-[#4A5054]">
+                  <span>12.4 / 19.2 MB</span>
+                  <span className="cursor-pointer text-[#5A6065] hover:text-destructive">
+                    CANCEL
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <HudStepper className="w-full">
+                <HudStep state="done" index={1} label="Target" />
+                <HudStepSeparator reached />
+                <HudStep state="done" index={2} label="Forces" />
+                <HudStepSeparator reached />
+                <HudStep state="active" index={3} label="Auth" />
+                <HudStepSeparator />
+                <HudStep state="todo" index={4} label="Commit" />
+              </HudStepper>
+              <div className="mt-4 border border-border bg-[#0F1113] px-4 py-3.5">
+                <div className="font-sans text-[15px] font-semibold uppercase tracking-[0.1em] text-foreground">
+                  Step 3 — Authorization
+                </div>
+                <div className="mt-1 font-sans text-[13px] tracking-[0.05em] text-[#9AA0A4]">
+                  Two officers with clearance A-1 must countersign this order.
+                </div>
+              </div>
+            </div>
           </div>
         </Section>
       </main>

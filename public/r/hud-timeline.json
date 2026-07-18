@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-timeline",
+  "type": "registry:ui",
+  "title": "HUD Timeline",
+  "description": "Audit-log timeline with diamond markers and connector rail.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-timeline.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudTimeline({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"flex flex-col\", className)} {...props} />\n}\n\nfunction HudTimelineItem({\n  className,\n  variant = \"muted\",\n  last = false,\n  time,\n  title,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  variant?: \"accent\" | \"destructive\" | \"muted\"\n  last?: boolean\n  time?: string\n  title: React.ReactNode\n}) {\n  return (\n    <div className={cn(\"flex gap-3.5\", className)} {...props}>\n      <div className=\"flex flex-col items-center\">\n        <span\n          aria-hidden\n          className={cn(\n            \"mt-1 size-[9px] shrink-0 rotate-45\",\n            variant === \"accent\" && \"bg-primary\",\n            variant === \"destructive\" && \"border border-destructive\",\n            variant === \"muted\" && \"border border-[#5A6065]\"\n          )}\n        />\n        {!last && <span aria-hidden className=\"mt-1 w-px flex-1 bg-border\" />}\n      </div>\n      <div className={cn(!last && \"pb-4\")}>\n        <div className=\"flex items-baseline gap-2.5\">\n          {time && <span className=\"font-mono text-[9px] text-[#5A6065]\">{time}</span>}\n          <span\n            className={cn(\n              \"font-sans text-[15px] tracking-[0.08em] uppercase\",\n              variant === \"accent\" && \"font-semibold text-foreground\",\n              variant === \"destructive\" && \"font-semibold text-destructive\",\n              variant === \"muted\" && \"font-medium text-[#9AA0A4]\"\n            )}\n          >\n            {title}\n          </span>\n        </div>\n        {children && (\n          <div className=\"mt-0.5 font-mono text-[9px] uppercase tracking-[0.08em] text-[#6E7478]\">\n            {children}\n          </div>\n        )}\n      </div>\n    </div>\n  )\n}\n\nexport { HudTimeline, HudTimelineItem }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-stepper",
+  "type": "registry:ui",
+  "title": "HUD Stepper",
+  "description": "Multi-step indicator: done/active/todo squares with connectors.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-stepper.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudStepper({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"flex items-center\", className)} {...props} />\n}\n\nfunction HudStep({\n  className,\n  state = \"todo\",\n  index,\n  label,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  state?: \"done\" | \"active\" | \"todo\"\n  index: number\n  label: React.ReactNode\n}) {\n  return (\n    <div\n      aria-current={state === \"active\" ? \"step\" : undefined}\n      className={cn(\"flex flex-col items-center gap-1.5\", className)}\n      {...props}\n    >\n      <span\n        className={cn(\n          \"grid size-[26px] place-items-center font-mono text-[11px]\",\n          state === \"done\" && \"bg-primary text-primary-foreground\",\n          state === \"active\" && \"border border-primary text-primary\",\n          state === \"todo\" && \"border border-border text-[#4A5054]\"\n        )}\n      >\n        {state === \"done\" ? \"✓\" : index}\n      </span>\n      <span\n        className={cn(\n          \"font-mono text-[8px] uppercase tracking-[0.12em]\",\n          state === \"active\" ? \"text-primary\" : state === \"done\" ? \"text-[#8A9094]\" : \"text-[#4A5054]\"\n        )}\n      >\n        {label}\n      </span>\n    </div>\n  )\n}\n\n// Connector between steps; `reached` colors it with the accent.\nfunction HudStepSeparator({\n  className,\n  reached = false,\n  ...props\n}: React.ComponentProps<\"span\"> & { reached?: boolean }) {\n  return (\n    <span\n      aria-hidden\n      className={cn(\"mx-2 mb-[18px] h-px flex-1\", reached ? \"bg-primary\" : \"bg-border\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { HudStepper, HudStep, HudStepSeparator }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

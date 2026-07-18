@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-sparkline",
+  "type": "registry:ui",
+  "title": "HUD Sparkline",
+  "description": "Inline SVG sparkline driven by a values array.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-sparkline.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\n// Inline SVG sparkline. Values are normalized to the viewBox; stroke follows\n// currentColor so wrap it in a text color class (defaults to primary).\nfunction HudSparkline({\n  className,\n  values,\n  width = 90,\n  height = 28,\n  strokeWidth = 1.5,\n  ...props\n}: React.ComponentProps<\"svg\"> & {\n  values: number[]\n  width?: number\n  height?: number\n  strokeWidth?: number\n}) {\n  const min = Math.min(...values)\n  const max = Math.max(...values)\n  const span = max - min || 1\n  const pad = 4\n  const step = values.length > 1 ? (width - 0) / (values.length - 1) : 0\n  const points = values\n    .map((v, i) => `${i * step},${height - pad - ((v - min) / span) * (height - pad * 2)}`)\n    .join(\" \")\n  return (\n    <svg\n      viewBox={`0 0 ${width} ${height}`}\n      aria-hidden\n      className={cn(\"block text-primary\", className)}\n      style={{ width }}\n      {...props}\n    >\n      <polyline points={points} fill=\"none\" stroke=\"currentColor\" strokeWidth={strokeWidth} />\n    </svg>\n  )\n}\n\nexport { HudSparkline }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

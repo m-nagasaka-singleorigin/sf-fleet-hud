@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-dropzone",
+  "type": "registry:ui",
+  "title": "HUD Dropzone",
+  "description": "Dashed drop target with accent hover and file input.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-dropzone.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudDropzone({\n  className,\n  title = \"Drop file\",\n  hint,\n  onFiles,\n  accept,\n  multiple,\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"onDrop\"> & {\n  title?: React.ReactNode\n  hint?: React.ReactNode\n  onFiles?: (files: FileList) => void\n  accept?: string\n  multiple?: boolean\n}) {\n  const inputRef = React.useRef<HTMLInputElement>(null)\n  const [dragOver, setDragOver] = React.useState(false)\n  return (\n    <div\n      role=\"button\"\n      tabIndex={0}\n      onClick={() => inputRef.current?.click()}\n      onKeyDown={(e) => {\n        if (e.key === \"Enter\" || e.key === \" \") inputRef.current?.click()\n      }}\n      onDragOver={(e) => {\n        e.preventDefault()\n        setDragOver(true)\n      }}\n      onDragLeave={() => setDragOver(false)}\n      onDrop={(e) => {\n        e.preventDefault()\n        setDragOver(false)\n        if (e.dataTransfer.files.length) onFiles?.(e.dataTransfer.files)\n      }}\n      className={cn(\n        \"cursor-pointer border border-dashed bg-[#0D0F11] px-5 py-6 text-center transition-colors outline-none\",\n        dragOver ? \"border-primary\" : \"border-[#3A3E42] hover:border-primary\",\n        \"focus-visible:ring-1 focus-visible:ring-ring\",\n        className\n      )}\n      {...props}\n    >\n      <div aria-hidden className=\"font-mono text-sm text-primary\">\n        ⇪\n      </div>\n      <div className=\"mt-1.5 font-sans text-[15px] font-medium uppercase tracking-[0.1em] text-[#C8CCCE]\">\n        {title}\n      </div>\n      {hint && (\n        <div className=\"mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]\">\n          {hint}\n        </div>\n      )}\n      <input\n        ref={inputRef}\n        type=\"file\"\n        accept={accept}\n        multiple={multiple}\n        className=\"sr-only\"\n        onChange={(e) => {\n          if (e.target.files?.length) onFiles?.(e.target.files)\n        }}\n      />\n    </div>\n  )\n}\n\nexport { HudDropzone }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

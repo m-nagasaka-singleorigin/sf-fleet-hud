@@ -615,6 +615,111 @@
       "dependencies": [
         "react-day-picker"
       ]
+    },
+    {
+      "name": "hud-gauge",
+      "type": "registry:ui",
+      "title": "HUD Gauge",
+      "description": "Masked conic-gradient ring gauge with numeric readout.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-gauge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-sparkline",
+      "type": "registry:ui",
+      "title": "HUD Sparkline",
+      "description": "Inline SVG sparkline driven by a values array.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-sparkline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-heatmap",
+      "type": "registry:ui",
+      "title": "HUD Heatmap",
+      "description": "Accent-tinted intensity matrix (values 0\u20131).",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-heatmap.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-timeline",
+      "type": "registry:ui",
+      "title": "HUD Timeline",
+      "description": "Audit-log timeline with diamond markers and connector rail.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-timeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-tree",
+      "type": "registry:ui",
+      "title": "HUD Tree",
+      "description": "Hierarchical nav tree with accent selection rail.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-tree.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-dropzone",
+      "type": "registry:ui",
+      "title": "HUD Dropzone",
+      "description": "Dashed drop target with accent hover and file input.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-dropzone.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-stepper",
+      "type": "registry:ui",
+      "title": "HUD Stepper",
+      "description": "Multi-step indicator: done/active/todo squares with connectors.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-stepper.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-heatmap",
+  "type": "registry:ui",
+  "title": "HUD Heatmap",
+  "description": "Accent-tinted intensity matrix (values 0–1).",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-heatmap.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\n// Intensity matrix. Each value in [0, 1] tints a square cell toward the accent.\nfunction HudHeatmap({\n  className,\n  values,\n  columns = 12,\n  ...props\n}: React.ComponentProps<\"div\"> & { values: number[]; columns?: number }) {\n  return (\n    <div\n      aria-hidden\n      className={cn(\"grid gap-[3px]\", className)}\n      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}\n      {...props}\n    >\n      {values.map((v, i) => {\n        const pct = Math.round(Math.max(0, Math.min(1, v)) * 100)\n        return (\n          <span\n            key={i}\n            className=\"aspect-square\"\n            style={{\n              background:\n                pct === 0\n                  ? \"#14171A\"\n                  : `color-mix(in srgb, var(--primary) ${pct}%, #14171A)`,\n            }}\n          />\n        )\n      })}\n    </div>\n  )\n}\n\nexport { HudHeatmap }\n",
+      "type": "registry:ui"
+    }
+  ]
+}
