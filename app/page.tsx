@@ -25,6 +25,7 @@ import { HudRadioGroup, HudRadioGroupItem } from "@/registry/hud/hud-radio-group
 import {
   HudSelect,
   HudSelectContent,
+  HudSelectGroup,
   HudSelectItem,
   HudSelectLabel,
   HudSelectTrigger,
@@ -336,10 +337,12 @@ export default function Home() {
                 <HudSelectValue placeholder="SELECT SECTOR" />
               </HudSelectTrigger>
               <HudSelectContent>
-                <HudSelectLabel>Select Sector</HudSelectLabel>
-                <HudSelectItem value="c1">GRID C1 — PERIMETER</HudSelectItem>
-                <HudSelectItem value="d2">GRID D2 — FORWARD</HudSelectItem>
-                <HudSelectItem value="e5">GRID E5 — RESERVE</HudSelectItem>
+                <HudSelectGroup>
+                  <HudSelectLabel>Select Sector</HudSelectLabel>
+                  <HudSelectItem value="c1">GRID C1 — PERIMETER</HudSelectItem>
+                  <HudSelectItem value="d2">GRID D2 — FORWARD</HudSelectItem>
+                  <HudSelectItem value="e5">GRID E5 — RESERVE</HudSelectItem>
+                </HudSelectGroup>
               </HudSelectContent>
             </HudSelect>
           </div>
