@@ -16,6 +16,22 @@ import { HudKbd } from "@/registry/hud/hud-kbd"
 import { HudSkeleton } from "@/registry/hud/hud-skeleton"
 import { Radar } from "@/registry/hud/radar"
 import { Gyro } from "@/registry/hud/gyro"
+import { HudLabel } from "@/registry/hud/hud-label"
+import { HudInput } from "@/registry/hud/hud-input"
+import { HudTextarea } from "@/registry/hud/hud-textarea"
+import { HudSwitch } from "@/registry/hud/hud-switch"
+import { HudCheckbox } from "@/registry/hud/hud-checkbox"
+import { HudRadioGroup, HudRadioGroupItem } from "@/registry/hud/hud-radio-group"
+import {
+  HudSelect,
+  HudSelectContent,
+  HudSelectItem,
+  HudSelectLabel,
+  HudSelectTrigger,
+  HudSelectValue,
+} from "@/registry/hud/hud-select"
+import { HudTabs, HudTabsList, HudTabsTrigger, HudTabsContent } from "@/registry/hud/hud-tabs"
+import { HudAlert, HudAlertTitle, HudAlertDescription } from "@/registry/hud/hud-alert"
 
 function Section({
   index,
@@ -147,6 +163,139 @@ export default function Home() {
               </HudButton>
             </HudPanelFooter>
           </HudPanel>
+        </Section>
+        <Section index="10" title="Label + Input" name="hud-input">
+          <div className="grid w-full max-w-lg grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <HudLabel htmlFor="callsign">Callsign</HudLabel>
+              <HudInput id="callsign" defaultValue="NOVA-01" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <HudLabel htmlFor="query">Search Registry</HudLabel>
+              <HudInput id="query" placeholder="> QUERY…" />
+            </div>
+          </div>
+        </Section>
+
+        <Section index="11" title="Textarea" name="hud-textarea">
+          <div className="relative w-full max-w-lg">
+            <HudLabel htmlFor="brief">Mission Brief</HudLabel>
+            <HudTextarea
+              id="brief"
+              rows={4}
+              className="mt-1.5"
+              defaultValue="Wing 09 advances to grid D2 under emission control. Weapons free on flagged contacts only."
+            />
+            <span className="absolute right-2.5 bottom-2.5 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]">
+              88 / 240
+            </span>
+          </div>
+        </Section>
+
+        <Section index="12" title="Switch / Checkbox / Radio" name="hud-switch">
+          <div className="flex flex-wrap items-center gap-10">
+            <label className="flex cursor-pointer items-center gap-2.5">
+              <HudSwitch defaultChecked />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#C8CCCE]">
+                Autopilot On
+              </span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2.5">
+              <HudSwitch />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6E7478]">
+                Stealth Off
+              </span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2.5">
+              <HudCheckbox defaultChecked />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#C8CCCE]">
+                Confirm Orders
+              </span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2.5">
+              <HudCheckbox />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6E7478]">
+                Relay Echo
+              </span>
+            </label>
+            <HudRadioGroup defaultValue="alpha" className="flex items-center gap-4">
+              <label className="flex cursor-pointer items-center gap-2">
+                <HudRadioGroupItem value="alpha" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#C8CCCE]">
+                  Alpha
+                </span>
+              </label>
+              <label className="flex cursor-pointer items-center gap-2">
+                <HudRadioGroupItem value="bravo" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6E7478]">
+                  Bravo
+                </span>
+              </label>
+            </HudRadioGroup>
+          </div>
+        </Section>
+
+        <Section index="13" title="Select" name="hud-select">
+          <div className="flex w-full max-w-xs flex-col gap-1.5">
+            <HudLabel>Sector</HudLabel>
+            <HudSelect defaultValue="d2">
+              <HudSelectTrigger>
+                <HudSelectValue placeholder="SELECT SECTOR" />
+              </HudSelectTrigger>
+              <HudSelectContent>
+                <HudSelectLabel>Select Sector</HudSelectLabel>
+                <HudSelectItem value="c1">GRID C1 — PERIMETER</HudSelectItem>
+                <HudSelectItem value="d2">GRID D2 — FORWARD</HudSelectItem>
+                <HudSelectItem value="e5">GRID E5 — RESERVE</HudSelectItem>
+              </HudSelectContent>
+            </HudSelect>
+          </div>
+        </Section>
+
+        <Section index="14" title="Tabs" name="hud-tabs">
+          <HudTabs defaultValue="tactical" className="w-full max-w-lg">
+            <HudTabsList>
+              <HudTabsTrigger value="tactical">Tactical</HudTabsTrigger>
+              <HudTabsTrigger value="logistics">Logistics</HudTabsTrigger>
+              <HudTabsTrigger value="personnel">Personnel</HudTabsTrigger>
+            </HudTabsList>
+            <HudTabsContent
+              value="tactical"
+              className="font-mono text-xs leading-relaxed text-muted-foreground"
+            >
+              Forward wings holding formation. Grid D2 contested.
+            </HudTabsContent>
+            <HudTabsContent
+              value="logistics"
+              className="font-mono text-xs leading-relaxed text-muted-foreground"
+            >
+              Resupply convoy ETA 04:12. Fuel reserves nominal.
+            </HudTabsContent>
+            <HudTabsContent
+              value="personnel"
+              className="font-mono text-xs leading-relaxed text-muted-foreground"
+            >
+              214 crew active. 12 on medical rotation.
+            </HudTabsContent>
+          </HudTabs>
+        </Section>
+
+        <Section index="15" title="Alert" name="hud-alert">
+          <div className="grid w-full gap-3 md:grid-cols-2">
+            <HudAlert>
+              <HudAlertTitle>Priority Directive</HudAlertTitle>
+              <HudAlertDescription>
+                Re-route Wing 09 to grid D2. Confirmation required within 90
+                seconds.
+              </HudAlertDescription>
+            </HudAlert>
+            <HudAlert variant="destructive">
+              <HudAlertTitle>Telemetry Dropout</HudAlertTitle>
+              <HudAlertDescription>
+                Wing 07 signal lost 42 seconds ago. Last vector 224.081.
+              </HudAlertDescription>
+            </HudAlert>
+          </div>
         </Section>
       </main>
 

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-textarea",
+  "type": "registry:ui",
+  "title": "HUD Textarea",
+  "description": "Terminal-style textarea with room for a counter overlay.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-textarea.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudTextarea({ className, ...props }: React.ComponentProps<\"textarea\">) {\n  return (\n    <textarea\n      className={cn(\n        \"w-full resize-y bg-[#0F1113] px-3 pt-2.5 pb-6 font-mono text-[11px] leading-[1.6] tracking-[0.06em] text-[#C8CCCE]\",\n        \"border border-input outline-none transition-colors placeholder:text-[#4A5054]\",\n        \"focus:border-primary disabled:cursor-not-allowed disabled:opacity-50\",\n        \"aria-invalid:border-destructive\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudTextarea }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -177,6 +177,162 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "hud-label",
+      "type": "registry:ui",
+      "title": "HUD Label",
+      "description": "Mono uppercase micro-label for form fields.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-label"
+      ]
+    },
+    {
+      "name": "hud-input",
+      "type": "registry:ui",
+      "title": "HUD Input",
+      "description": "Terminal-style text input: mono, square, focus ring in accent.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-textarea",
+      "type": "registry:ui",
+      "title": "HUD Textarea",
+      "description": "Terminal-style textarea with room for a counter overlay.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-switch",
+      "type": "registry:ui",
+      "title": "HUD Switch",
+      "description": "Square 36x18 switch with accent thumb when checked.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-switch"
+      ]
+    },
+    {
+      "name": "hud-checkbox",
+      "type": "registry:ui",
+      "title": "HUD Checkbox",
+      "description": "Square checkbox with solid accent fill marker.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox"
+      ]
+    },
+    {
+      "name": "hud-radio-group",
+      "type": "registry:ui",
+      "title": "HUD Radio Group",
+      "description": "Circular radio with solid accent dot.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-radio-group"
+      ]
+    },
+    {
+      "name": "hud-select",
+      "type": "registry:ui",
+      "title": "HUD Select",
+      "description": "Dark popover select: accent top edge, 2px accent active rail, diamond marker.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-select"
+      ]
+    },
+    {
+      "name": "hud-tabs",
+      "type": "registry:ui",
+      "title": "HUD Tabs",
+      "description": "Underline tabs: condensed uppercase, 2px accent indicator.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ]
+    },
+    {
+      "name": "hud-alert",
+      "type": "registry:ui",
+      "title": "HUD Alert",
+      "description": "Directive/critical alert strip with icon glyph and tinted border.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
     }
   ]
 }

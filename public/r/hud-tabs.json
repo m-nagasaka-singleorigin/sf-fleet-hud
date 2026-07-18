@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-tabs",
+  "type": "registry:ui",
+  "title": "HUD Tabs",
+  "description": "Underline tabs: condensed uppercase, 2px accent indicator.",
+  "dependencies": [
+    "@radix-ui/react-tabs"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-tabs.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\nimport { cn } from \"@/lib/utils\"\n\nconst HudTabs = TabsPrimitive.Root\n\nfunction HudTabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {\n  return (\n    <TabsPrimitive.List\n      className={cn(\"flex items-center border-b border-border\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction HudTabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {\n  return (\n    <TabsPrimitive.Trigger\n      className={cn(\n        \"-mb-px cursor-pointer border-b-2 border-transparent px-[18px] py-2 font-sans text-sm font-normal uppercase tracking-[0.14em] text-muted-foreground outline-none transition-colors\",\n        \"hover:text-[#C8CCCE] focus-visible:ring-1 focus-visible:ring-ring\",\n        \"data-[state=active]:border-primary data-[state=active]:font-medium data-[state=active]:text-foreground\",\n        \"disabled:pointer-events-none disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudTabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {\n  return <TabsPrimitive.Content className={cn(\"mt-4 outline-none\", className)} {...props} />\n}\n\nexport { HudTabs, HudTabsList, HudTabsTrigger, HudTabsContent }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

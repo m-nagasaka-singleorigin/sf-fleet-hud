@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-switch",
+  "type": "registry:ui",
+  "title": "HUD Switch",
+  "description": "Square 36x18 switch with accent thumb when checked.",
+  "dependencies": [
+    "@radix-ui/react-switch"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-switch.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SwitchPrimitive from \"@radix-ui/react-switch\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudSwitch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {\n  return (\n    <SwitchPrimitive.Root\n      className={cn(\n        \"inline-flex h-[18px] w-9 shrink-0 cursor-pointer items-center border bg-transparent p-[2px] outline-none transition-colors\",\n        \"border-[#3A3E42] data-[state=checked]:border-primary\",\n        \"focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <SwitchPrimitive.Thumb\n        className={cn(\n          \"block size-3 bg-[#5A6065] transition-transform data-[state=checked]:translate-x-[18px] data-[state=checked]:bg-primary\"\n        )}\n      />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { HudSwitch }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

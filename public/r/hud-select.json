@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-select",
+  "type": "registry:ui",
+  "title": "HUD Select",
+  "description": "Dark popover select: accent top edge, 2px accent active rail, diamond marker.",
+  "dependencies": [
+    "@radix-ui/react-select"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-select.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SelectPrimitive from \"@radix-ui/react-select\"\nimport { cn } from \"@/lib/utils\"\n\nconst HudSelect = SelectPrimitive.Root\nconst HudSelectGroup = SelectPrimitive.Group\nconst HudSelectValue = SelectPrimitive.Value\n\nfunction HudSelectTrigger({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Trigger>) {\n  return (\n    <SelectPrimitive.Trigger\n      className={cn(\n        \"flex w-full cursor-pointer items-center justify-between gap-3 bg-[#0F1113] px-3 py-2.5 font-mono text-xs tracking-[0.1em] text-foreground\",\n        \"border border-input outline-none transition-colors hover:border-primary focus:border-primary\",\n        \"disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-[#4A5054]\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      <SelectPrimitive.Icon asChild>\n        <span\n          aria-hidden\n          className=\"-mt-0.5 size-1.5 shrink-0 rotate-45 border-r border-b border-primary transition-transform\"\n        />\n      </SelectPrimitive.Icon>\n    </SelectPrimitive.Trigger>\n  )\n}\n\nfunction HudSelectContent({ className, children, position = \"popper\", ...props }: React.ComponentProps<typeof SelectPrimitive.Content>) {\n  return (\n    <SelectPrimitive.Portal>\n      <SelectPrimitive.Content\n        position={position}\n        sideOffset={4}\n        className={cn(\n          \"z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-[#3A3E42] border-t-primary bg-popover text-popover-foreground shadow-[0_16px_32px_rgba(0,0,0,0.6)]\",\n          \"data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0\",\n          className\n        )}\n        {...props}\n      >\n        <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>\n      </SelectPrimitive.Content>\n    </SelectPrimitive.Portal>\n  )\n}\n\nfunction HudSelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) {\n  return (\n    <SelectPrimitive.Label\n      className={cn(\n        \"border-b border-[#1D2023] px-3 py-[7px] font-mono text-[8px] uppercase tracking-[0.2em] text-[#4A5054]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudSelectItem({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Item>) {\n  return (\n    <SelectPrimitive.Item\n      className={cn(\n        \"flex cursor-pointer items-center gap-2.5 border-l-2 border-transparent px-3 py-[9px] font-mono text-[11px] tracking-[0.1em] text-[#9AA0A4] outline-none\",\n        \"data-[highlighted]:border-primary data-[highlighted]:bg-accent data-[highlighted]:text-foreground\",\n        \"data-[state=checked]:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\n      <SelectPrimitive.ItemIndicator className=\"ml-auto font-mono text-[9px] text-primary\">\n        ◆\n      </SelectPrimitive.ItemIndicator>\n    </SelectPrimitive.Item>\n  )\n}\n\nfunction HudSelectSeparator({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Separator>) {\n  return <SelectPrimitive.Separator className={cn(\"h-px bg-[#1D2023]\", className)} {...props} />\n}\n\nexport {\n  HudSelect,\n  HudSelectGroup,\n  HudSelectValue,\n  HudSelectTrigger,\n  HudSelectContent,\n  HudSelectLabel,\n  HudSelectItem,\n  HudSelectSeparator,\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-alert",
+  "type": "registry:ui",
+  "title": "HUD Alert",
+  "description": "Directive/critical alert strip with icon glyph and tinted border.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-alert.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@/lib/utils\"\n\nconst hudAlertVariants = cva(\"flex gap-3 border px-4 py-3\", {\n  variants: {\n    variant: {\n      default: \"border-primary/50 bg-primary/5\",\n      destructive: \"border-destructive/50 bg-destructive/5\",\n    },\n  },\n  defaultVariants: { variant: \"default\" },\n})\n\nfunction HudAlert({\n  className,\n  variant,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof hudAlertVariants>) {\n  return (\n    <div role=\"alert\" className={cn(hudAlertVariants({ variant }), className)} {...props}>\n      <span\n        aria-hidden\n        className={cn(\n          \"font-mono text-xs leading-[1.4]\",\n          variant === \"destructive\" ? \"text-destructive\" : \"text-primary\"\n        )}\n      >\n        {variant === \"destructive\" ? \"▲\" : \"◆\"}\n      </span>\n      <div className=\"flex-1\">{children}</div>\n    </div>\n  )\n}\n\nfunction HudAlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      className={cn(\n        \"font-sans text-[15px] font-semibold uppercase tracking-[0.1em] text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudAlertDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      className={cn(\"mt-0.5 font-sans text-[13px] tracking-[0.05em] text-[#9AA0A4]\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { HudAlert, HudAlertTitle, HudAlertDescription, hudAlertVariants }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

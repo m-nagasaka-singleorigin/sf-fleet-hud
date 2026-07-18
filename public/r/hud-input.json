@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-input",
+  "type": "registry:ui",
+  "title": "HUD Input",
+  "description": "Terminal-style text input: mono, square, focus ring in accent.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-input.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudInput({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <input\n      type={type}\n      className={cn(\n        \"w-full bg-[#0F1113] px-3 py-2.5 font-mono text-xs tracking-[0.1em] text-foreground\",\n        \"border border-input outline-none transition-colors placeholder:text-[#4A5054]\",\n        \"focus:border-primary disabled:cursor-not-allowed disabled:opacity-50\",\n        \"aria-invalid:border-destructive\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudInput }\n",
+      "type": "registry:ui"
+    }
+  ]
+}
