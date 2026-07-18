@@ -10,7 +10,7 @@ function HudSparkline({
   height = 28,
   strokeWidth = 1.5,
   ...props
-}: React.ComponentProps<"svg"> & {
+}: Omit<React.ComponentProps<"svg">, "values"> & {
   values: number[]
   width?: number
   height?: number
