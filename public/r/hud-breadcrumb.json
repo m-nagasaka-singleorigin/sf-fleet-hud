@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-breadcrumb",
+  "type": "registry:ui",
+  "title": "HUD Breadcrumb",
+  "description": "Mono breadcrumb trail with caret separators, accent current page.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-breadcrumb.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudBreadcrumb({ className, ...props }: React.ComponentProps<\"nav\">) {\n  return <nav aria-label=\"breadcrumb\" className={cn(\"\", className)} {...props} />\n}\n\nfunction HudBreadcrumbList({ className, ...props }: React.ComponentProps<\"ol\">) {\n  return (\n    <ol className={cn(\"flex flex-wrap items-center gap-2\", className)} {...props} />\n  )\n}\n\nfunction HudBreadcrumbItem({ className, ...props }: React.ComponentProps<\"li\">) {\n  return <li className={cn(\"inline-flex items-center\", className)} {...props} />\n}\n\nfunction HudBreadcrumbLink({ className, ...props }: React.ComponentProps<\"a\">) {\n  return (\n    <a\n      className={cn(\n        \"font-mono text-[10px] uppercase tracking-[0.1em] text-[#8A9094] transition-colors hover:text-primary\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudBreadcrumbPage({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      role=\"link\"\n      aria-disabled=\"true\"\n      aria-current=\"page\"\n      className={cn(\"font-mono text-[10px] uppercase tracking-[0.1em] text-primary\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction HudBreadcrumbSeparator({ className, children, ...props }: React.ComponentProps<\"li\">) {\n  return (\n    <li role=\"presentation\" aria-hidden className={cn(\"font-mono text-[8px] text-[#4A5054]\", className)} {...props}>\n      {children ?? \"▸\"}\n    </li>\n  )\n}\n\nexport {\n  HudBreadcrumb,\n  HudBreadcrumbList,\n  HudBreadcrumbItem,\n  HudBreadcrumbLink,\n  HudBreadcrumbPage,\n  HudBreadcrumbSeparator,\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

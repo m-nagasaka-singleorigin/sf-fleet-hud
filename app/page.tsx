@@ -79,6 +79,50 @@ import {
   HudCommandFooter,
 } from "@/registry/hud/hud-command"
 import { ToastDemo } from "@/components/toast-demo"
+import {
+  HudTable,
+  HudTableHeader,
+  HudTableBody,
+  HudTableRow,
+  HudTableHead,
+  HudTableCell,
+} from "@/registry/hud/hud-table"
+import {
+  HudPagination,
+  HudPaginationItem,
+  HudPaginationPrevious,
+  HudPaginationNext,
+  HudPaginationEllipsis,
+} from "@/registry/hud/hud-pagination"
+import { HudChip } from "@/registry/hud/hud-chip"
+import {
+  HudAccordion,
+  HudAccordionItem,
+  HudAccordionTrigger,
+  HudAccordionContent,
+} from "@/registry/hud/hud-accordion"
+import {
+  HudBreadcrumb,
+  HudBreadcrumbList,
+  HudBreadcrumbItem,
+  HudBreadcrumbLink,
+  HudBreadcrumbPage,
+  HudBreadcrumbSeparator,
+} from "@/registry/hud/hud-breadcrumb"
+import {
+  HudAvatar,
+  HudAvatarFallback,
+  HudAvatarStatus,
+  HudAvatarRank,
+} from "@/registry/hud/hud-avatar"
+import { HudSlider } from "@/registry/hud/hud-slider"
+import {
+  HudInputOTP,
+  HudInputOTPGroup,
+  HudInputOTPSlot,
+  HudInputOTPSeparator,
+} from "@/registry/hud/hud-input-otp"
+import { HudCalendar } from "@/registry/hud/hud-calendar"
 
 function Section({
   index,
@@ -484,6 +528,196 @@ export default function Home() {
             </HudCommandList>
             <HudCommandFooter />
           </HudCommand>
+        </Section>
+        <Section index="22" title="Table + Filter + Pagination" name="hud-table">
+          <div className="flex w-full flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#4A5054]">
+                Filters:
+              </span>
+              <HudChip variant="active" onRemove={undefined}>
+                STATUS: ENGAGED
+              </HudChip>
+              <HudChip>SECTOR: 7</HudChip>
+              <HudChip>PING &lt; 20MS</HudChip>
+            </div>
+            <HudTable>
+              <HudTableHeader>
+                <HudTableRow className="hover:bg-transparent">
+                  <HudTableHead sorted="asc">Unit</HudTableHead>
+                  <HudTableHead>Wing</HudTableHead>
+                  <HudTableHead>Status</HudTableHead>
+                  <HudTableHead className="text-right">Ping</HudTableHead>
+                </HudTableRow>
+              </HudTableHeader>
+              <HudTableBody>
+                <HudTableRow selected>
+                  <HudTableCell>D-0117</HudTableCell>
+                  <HudTableCell className="font-sans text-sm tracking-[0.08em] text-[#9AA0A4]">
+                    NOVA WING
+                  </HudTableCell>
+                  <HudTableCell>
+                    <StatusBadge variant="priority">Engaged</StatusBadge>
+                  </HudTableCell>
+                  <HudTableCell className="text-right text-[#8A9094]">12MS</HudTableCell>
+                </HudTableRow>
+                <HudTableRow>
+                  <HudTableCell>D-0142</HudTableCell>
+                  <HudTableCell className="font-sans text-sm tracking-[0.08em] text-[#9AA0A4]">
+                    KESTREL WING
+                  </HudTableCell>
+                  <HudTableCell>
+                    <StatusBadge variant="patrol">Patrol</StatusBadge>
+                  </HudTableCell>
+                  <HudTableCell className="text-right text-[#8A9094]">18MS</HudTableCell>
+                </HudTableRow>
+                <HudTableRow>
+                  <HudTableCell>D-0219</HudTableCell>
+                  <HudTableCell className="font-sans text-sm tracking-[0.08em] text-[#9AA0A4]">
+                    VANTA WING
+                  </HudTableCell>
+                  <HudTableCell>
+                    <StatusBadge variant="standby">Standby</StatusBadge>
+                  </HudTableCell>
+                  <HudTableCell className="text-right text-[#8A9094]">15MS</HudTableCell>
+                </HudTableRow>
+              </HudTableBody>
+            </HudTable>
+            <div className="flex items-center gap-1.5">
+              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]">
+                2 selected / 214 rows
+              </span>
+              <span className="flex-1" />
+              <HudPagination>
+                <HudPaginationPrevious />
+                <HudPaginationItem>01</HudPaginationItem>
+                <HudPaginationItem>02</HudPaginationItem>
+                <HudPaginationItem active>03</HudPaginationItem>
+                <HudPaginationEllipsis />
+                <HudPaginationItem>18</HudPaginationItem>
+                <HudPaginationNext />
+              </HudPagination>
+            </div>
+          </div>
+        </Section>
+
+        <Section index="23" title="Accordion" name="hud-accordion">
+          <HudAccordion type="single" defaultValue="relay" collapsible className="w-full max-w-md">
+            <HudAccordionItem value="relay">
+              <HudAccordionTrigger>Relay Configuration</HudAccordionTrigger>
+              <HudAccordionContent>
+                {(
+                  [
+                    ["Primary Relay", "STATION-3"],
+                    ["Fallback", "LUNA-1"],
+                  ] as const
+                ).map(([k, v]) => (
+                  <div key={k} className="flex justify-between">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]">
+                      {k}
+                    </span>
+                    <span className="font-mono text-[10px] text-[#C8CCCE]">{v}</span>
+                  </div>
+                ))}
+              </HudAccordionContent>
+            </HudAccordionItem>
+            <HudAccordionItem value="sensor">
+              <HudAccordionTrigger>Sensor Calibration</HudAccordionTrigger>
+              <HudAccordionContent className="font-mono text-[10px] text-muted-foreground">
+                Array nominal. Last sweep 13:58 UTC.
+              </HudAccordionContent>
+            </HudAccordionItem>
+            <HudAccordionItem value="rules">
+              <HudAccordionTrigger>Notification Rules</HudAccordionTrigger>
+              <HudAccordionContent className="font-mono text-[10px] text-muted-foreground">
+                Critical alerts route to command deck.
+              </HudAccordionContent>
+            </HudAccordionItem>
+          </HudAccordion>
+        </Section>
+
+        <Section index="24" title="Breadcrumb + Avatar" name="hud-breadcrumb">
+          <div className="flex w-full flex-col gap-6">
+            <HudBreadcrumb>
+              <HudBreadcrumbList>
+                <HudBreadcrumbItem>
+                  <HudBreadcrumbLink href="#">Orbital Station</HudBreadcrumbLink>
+                </HudBreadcrumbItem>
+                <HudBreadcrumbSeparator />
+                <HudBreadcrumbItem>
+                  <HudBreadcrumbLink href="#">Sector 7</HudBreadcrumbLink>
+                </HudBreadcrumbItem>
+                <HudBreadcrumbSeparator />
+                <HudBreadcrumbItem>
+                  <HudBreadcrumbPage>Wing 09 — Nova</HudBreadcrumbPage>
+                </HudBreadcrumbItem>
+              </HudBreadcrumbList>
+            </HudBreadcrumb>
+            <div className="flex items-end gap-4">
+              <HudAvatar variant="strong">
+                <HudAvatarFallback>KV</HudAvatarFallback>
+                <HudAvatarStatus />
+              </HudAvatar>
+              <HudAvatar variant="accent">
+                <HudAvatarFallback>HG</HudAvatarFallback>
+                <HudAvatarRank />
+              </HudAvatar>
+              <HudAvatar>
+                <HudAvatarFallback>PA</HudAvatarFallback>
+              </HudAvatar>
+              <HudAvatar size="sm">
+                <HudAvatarFallback>MR</HudAvatarFallback>
+              </HudAvatar>
+            </div>
+          </div>
+        </Section>
+
+        <Section index="25" title="Slider" name="hud-slider">
+          <div className="flex w-full max-w-sm flex-col gap-8">
+            <div>
+              <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
+                <span>Scan Interval</span>
+                <span className="text-primary">4.0S</span>
+              </div>
+              <HudSlider defaultValue={[40]} className="mt-2" />
+            </div>
+            <div>
+              <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
+                <span>Ping Threshold (Range)</span>
+                <span className="text-primary">08 — 42MS</span>
+              </div>
+              <HudSlider defaultValue={[16, 68]} className="mt-2" />
+            </div>
+          </div>
+        </Section>
+
+        <Section index="26" title="Calendar" name="hud-calendar">
+          <HudCalendar
+            mode="range"
+            defaultMonth={new Date(2126, 6)}
+            selected={{ from: new Date(2126, 6, 8), to: new Date(2126, 6, 14) }}
+          />
+        </Section>
+
+        <Section index="27" title="Input OTP" name="hud-input-otp">
+          <div className="flex items-center gap-2">
+            <HudInputOTP maxLength={6} defaultValue="7A4">
+              <HudInputOTPGroup>
+                <HudInputOTPSlot index={0} />
+                <HudInputOTPSlot index={1} />
+                <HudInputOTPSlot index={2} />
+              </HudInputOTPGroup>
+              <HudInputOTPSeparator />
+              <HudInputOTPGroup>
+                <HudInputOTPSlot index={3} />
+                <HudInputOTPSlot index={4} />
+                <HudInputOTPSlot index={5} />
+              </HudInputOTPGroup>
+            </HudInputOTP>
+            <span className="ml-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[#4A5054]">
+              Expires 00:47
+            </span>
+          </div>
         </Section>
       </main>
 

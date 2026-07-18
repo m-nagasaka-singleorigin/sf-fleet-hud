@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-input-otp",
+  "type": "registry:ui",
+  "title": "HUD Input OTP",
+  "description": "38x44 code cells with accent active border and blinking caret.",
+  "dependencies": [
+    "input-otp"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-input-otp.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { OTPInput, OTPInputContext } from \"input-otp\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudInputOTP({\n  className,\n  containerClassName,\n  ...props\n}: React.ComponentProps<typeof OTPInput> & { containerClassName?: string }) {\n  return (\n    <OTPInput\n      containerClassName={cn(\"flex items-center gap-2 has-disabled:opacity-50\", containerClassName)}\n      className={cn(\"disabled:cursor-not-allowed\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction HudInputOTPGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"flex items-center gap-2\", className)} {...props} />\n}\n\nfunction HudInputOTPSlot({\n  index,\n  className,\n  ...props\n}: React.ComponentProps<\"div\"> & { index: number }) {\n  const inputOTPContext = React.useContext(OTPInputContext)\n  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}\n\n  return (\n    <div\n      data-active={isActive}\n      className={cn(\n        \"relative grid h-11 w-[38px] place-items-center bg-[#0F1113] font-mono text-base text-foreground\",\n        char ? \"border border-[#3A3E42]\" : \"border border-border\",\n        isActive && \"border-primary\",\n        className\n      )}\n      {...props}\n    >\n      {char}\n      {hasFakeCaret && (\n        <span\n          aria-hidden\n          className=\"absolute h-4 w-px bg-primary motion-safe:animate-[hud-caret_1s_step-end_infinite]\"\n        />\n      )}\n      <style>{\"@keyframes hud-caret{0%,100%{opacity:1}50%{opacity:0}}\"}</style>\n    </div>\n  )\n}\n\nfunction HudInputOTPSeparator({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      role=\"separator\"\n      className={cn(\"h-px w-3 bg-[#4A5054]\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { HudInputOTP, HudInputOTPGroup, HudInputOTPSlot, HudInputOTPSeparator }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

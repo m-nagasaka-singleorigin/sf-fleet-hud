@@ -443,6 +443,178 @@
       "dependencies": [
         "cmdk"
       ]
+    },
+    {
+      "name": "hud-table",
+      "type": "registry:ui",
+      "title": "HUD Table",
+      "description": "Data table shell: mono micro-headers, deep row borders, selected tint.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-pagination",
+      "type": "registry:ui",
+      "title": "HUD Pagination",
+      "description": "26px square page buttons with accent active state.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-chip",
+      "type": "registry:ui",
+      "title": "HUD Chip",
+      "description": "Removable filter/tag chip in mono uppercase.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-chip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "hud-accordion",
+      "type": "registry:ui",
+      "title": "HUD Accordion",
+      "description": "Bordered accordion with rotating caret and hairline dividers.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-accordion"
+      ]
+    },
+    {
+      "name": "hud-breadcrumb",
+      "type": "registry:ui",
+      "title": "HUD Breadcrumb",
+      "description": "Mono breadcrumb trail with caret separators, accent current page.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-avatar",
+      "type": "registry:ui",
+      "title": "HUD Avatar",
+      "description": "Square initials avatar with status dot and rank bars.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "hud-slider",
+      "type": "registry:ui",
+      "title": "HUD Slider",
+      "description": "2px track slider with diamond thumbs; supports ranges.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ]
+    },
+    {
+      "name": "hud-popover",
+      "type": "registry:ui",
+      "title": "HUD Popover",
+      "description": "Dark bordered popover surface.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ]
+    },
+    {
+      "name": "hud-input-otp",
+      "type": "registry:ui",
+      "title": "HUD Input OTP",
+      "description": "38x44 code cells with accent active border and blinking caret.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "input-otp"
+      ]
+    },
+    {
+      "name": "hud-calendar",
+      "type": "registry:ui",
+      "title": "HUD Calendar",
+      "description": "Mono grid calendar with accent selection and range tint.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-calendar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "react-day-picker"
+      ]
     }
   ]
 }

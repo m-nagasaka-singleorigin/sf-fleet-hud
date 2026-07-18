@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-popover",
+  "type": "registry:ui",
+  "title": "HUD Popover",
+  "description": "Dark bordered popover surface.",
+  "dependencies": [
+    "@radix-ui/react-popover"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-popover.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\"\nimport { cn } from \"@/lib/utils\"\n\nconst HudPopover = PopoverPrimitive.Root\nconst HudPopoverTrigger = PopoverPrimitive.Trigger\nconst HudPopoverAnchor = PopoverPrimitive.Anchor\n\nfunction HudPopoverContent({\n  className,\n  align = \"start\",\n  sideOffset = 4,\n  ...props\n}: React.ComponentProps<typeof PopoverPrimitive.Content>) {\n  return (\n    <PopoverPrimitive.Portal>\n      <PopoverPrimitive.Content\n        align={align}\n        sideOffset={sideOffset}\n        className={cn(\n          \"z-50 w-72 border border-[#3A3E42] bg-popover text-popover-foreground shadow-[0_12px_24px_rgba(0,0,0,0.6)] outline-none\",\n          \"data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0\",\n          className\n        )}\n        {...props}\n      />\n    </PopoverPrimitive.Portal>\n  )\n}\n\nexport { HudPopover, HudPopoverTrigger, HudPopoverAnchor, HudPopoverContent }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

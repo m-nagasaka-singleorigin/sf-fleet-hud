@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-pagination",
+  "type": "registry:ui",
+  "title": "HUD Pagination",
+  "description": "26px square page buttons with accent active state.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-pagination.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudPagination({ className, ...props }: React.ComponentProps<\"nav\">) {\n  return (\n    <nav\n      role=\"navigation\"\n      aria-label=\"pagination\"\n      className={cn(\"flex items-center gap-1.5\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction HudPaginationItem({\n  className,\n  active = false,\n  ...props\n}: React.ComponentProps<\"button\"> & { active?: boolean }) {\n  return (\n    <button\n      aria-current={active ? \"page\" : undefined}\n      className={cn(\n        \"grid size-[26px] cursor-pointer place-items-center font-mono text-[10px] transition-colors outline-none focus-visible:ring-1 focus-visible:ring-ring\",\n        active\n          ? \"bg-primary text-primary-foreground\"\n          : \"border border-border text-[#8A9094] hover:border-primary hover:text-primary\",\n        \"disabled:pointer-events-none disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudPaginationPrevious(props: React.ComponentProps<typeof HudPaginationItem>) {\n  return (\n    <HudPaginationItem aria-label=\"Go to previous page\" {...props}>\n      ‹\n    </HudPaginationItem>\n  )\n}\n\nfunction HudPaginationNext(props: React.ComponentProps<typeof HudPaginationItem>) {\n  return (\n    <HudPaginationItem aria-label=\"Go to next page\" {...props}>\n      ›\n    </HudPaginationItem>\n  )\n}\n\nfunction HudPaginationEllipsis({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      aria-hidden\n      className={cn(\"grid size-[26px] place-items-center font-mono text-[10px] text-[#4A5054]\", className)}\n      {...props}\n    >\n      …\n    </span>\n  )\n}\n\nexport {\n  HudPagination,\n  HudPaginationItem,\n  HudPaginationPrevious,\n  HudPaginationNext,\n  HudPaginationEllipsis,\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}
