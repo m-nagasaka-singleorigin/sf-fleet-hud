@@ -152,7 +152,7 @@
       "name": "radar",
       "type": "registry:ui",
       "title": "Radar",
-      "description": "Decorative sector-scan radar with rotating sweep and pulsing blips.",
+      "description": "Sector-scan radar with rotating sweep. Decorative by default; accepts polar `blips` ({angle, distance, hot}) to plot real data.",
       "registryDependencies": [
         "utils"
       ],

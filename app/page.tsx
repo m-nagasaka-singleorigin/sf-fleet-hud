@@ -310,7 +310,30 @@ export default function Home() {
         </Section>
 
         <Section index="07" title="Radar" name="radar">
-          <Radar size={240} />
+          <div className="flex flex-wrap items-start gap-10">
+            <div className="flex flex-col items-center gap-2">
+              <Radar size={240} />
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#4A5054]">
+                Default (Ambience)
+              </span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Radar
+                size={240}
+                blips={[
+                  { angle: 0, distance: 0.85, hot: true },
+                  { angle: 45, distance: 0.6 },
+                  { angle: 90, distance: 0.35 },
+                  { angle: 180, distance: 0.7, hot: true },
+                  { angle: 270, distance: 0.5 },
+                  { angle: 315, distance: 0.9 },
+                ]}
+              />
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#4A5054]">
+                blips=[{"{"}angle, distance, hot{"}"}] (Data-Driven)
+              </span>
+            </div>
+          </div>
         </Section>
 
         <Section index="08" title="Gyro" name="gyro">
