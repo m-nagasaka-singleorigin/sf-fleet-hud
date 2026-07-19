@@ -86,31 +86,6 @@ function CommsLog() {
           </span>
         </PanelTitleRow>
 
-        {/* Active-filter chips carry their own remove button, so the chip stays a
-            label and never becomes a fake control. */}
-        {filtered && (
-          <div className="flex flex-wrap items-center gap-2 border-b border-[#1D2023] px-4 py-2.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4A5054]">
-              Active
-            </span>
-            {priority !== "all" && (
-              <HudChip variant="active" onRemove={() => setPriority("all")}>
-                {priority}
-              </HudChip>
-            )}
-            {day && (
-              <HudChip variant="active" onRemove={() => setDay(undefined)}>
-                {formatDay(day)}
-              </HudChip>
-            )}
-            {COMMS_CHANNELS.filter((c) => !channels.has(c)).map((c) => (
-              <HudChip key={c} variant="active" onRemove={() => toggleChannel(c, true)}>
-                −{c}
-              </HudChip>
-            ))}
-          </div>
-        )}
-
         {/* filters */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-[#1D2023] px-4 py-3">
           <div className="flex items-center gap-3">
@@ -143,7 +118,9 @@ function CommsLog() {
 
             <HudPopover>
               <HudPopoverTrigger asChild>
-                <HudButton variant="ghost" size="sm">
+                {/* Fixed width so the label swap ("Date range" → a date) cannot
+                    resize the trigger the popover is anchored to. */}
+                <HudButton variant="ghost" size="sm" className="w-[132px]">
                   {day ? formatDay(day) : "Date range"}
                 </HudButton>
               </HudPopoverTrigger>
@@ -152,21 +129,50 @@ function CommsLog() {
               </HudPopoverContent>
             </HudPopover>
 
-            {filtered && (
-              <HudButton
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setDay(undefined)
-                  setPriority("all")
-                  setChannels(new Set(COMMS_CHANNELS))
-                }}
-              >
-                Clear filters
-              </HudButton>
-            )}
           </div>
         </div>
+
+        {/* Active-filter chips sit BELOW the control row. Above it, the row
+            appearing would push the controls down and drag the open calendar
+            popover with them. Chips keep their own remove button so a chip stays
+            a label and never becomes a fake control. */}
+        {filtered && (
+          <div className="flex flex-wrap items-center gap-2 border-b border-[#1D2023] px-4 py-2.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4A5054]">
+              Active
+            </span>
+            {priority !== "all" && (
+              <HudChip variant="active" onRemove={() => setPriority("all")}>
+                {priority}
+              </HudChip>
+            )}
+            {day && (
+              <HudChip variant="active" onRemove={() => setDay(undefined)}>
+                {formatDay(day)}
+              </HudChip>
+            )}
+            {COMMS_CHANNELS.filter((c) => !channels.has(c)).map((c) => (
+              <HudChip key={c} variant="active" onRemove={() => toggleChannel(c, true)}>
+                −{c}
+              </HudChip>
+            ))}
+            {/* Clearing lives with the active filters, not in the control row: a
+                button appearing there would reflow the row and make the calendar
+                popover jump sideways. */}
+            <HudButton
+              variant="ghost"
+              size="sm"
+              className="ml-auto"
+              onClick={() => {
+                setDay(undefined)
+                setPriority("all")
+                setChannels(new Set(COMMS_CHANNELS))
+              }}
+            >
+              Clear filters
+            </HudButton>
+          </div>
+        )}
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3.5">
           {shown.length === 0 ? (
