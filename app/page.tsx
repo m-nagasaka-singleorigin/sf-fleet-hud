@@ -184,8 +184,14 @@ export default function Home() {
           Dark sci-fi fleet-ops UI kit for shadcn/ui. Monochrome + orange
           accent, radius 0, condensed sans + terminal mono.
         </p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
           <EffectsToggles />
+          <a
+            href="/dashboard"
+            className="border border-[#3A3E42] px-4 py-1.5 font-sans text-sm font-medium uppercase tracking-[0.14em] text-[#C8CCCE] transition-colors hover:border-primary hover:text-primary"
+          >
+            Dashboard Demo →
+          </a>
         </div>
       </header>
 
