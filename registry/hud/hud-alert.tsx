@@ -7,10 +7,17 @@ const hudAlertVariants = cva("flex gap-3 border px-4 py-3", {
     variant: {
       default: "border-primary/50 bg-primary/5",
       destructive: "border-destructive/50 bg-destructive/5",
+      muted: "border-border bg-transparent",
     },
   },
   defaultVariants: { variant: "default" },
 })
+
+const GLYPH = {
+  default: { mark: "◆", color: "text-primary" },
+  destructive: { mark: "▲", color: "text-destructive" },
+  muted: { mark: "●", color: "text-[#8A9094]" },
+} as const
 
 function HudAlert({
   className,
@@ -22,14 +29,11 @@ function HudAlert({
     <div role="alert" className={cn(hudAlertVariants({ variant }), className)} {...props}>
       <span
         aria-hidden
-        className={cn(
-          "font-mono text-xs leading-[1.4]",
-          variant === "destructive" ? "text-destructive" : "text-primary"
-        )}
+        className={cn("font-mono text-xs leading-[1.4]", GLYPH[variant ?? "default"].color)}
       >
-        {variant === "destructive" ? "▲" : "◆"}
+        {GLYPH[variant ?? "default"].mark}
       </span>
-      <div className="flex-1">{children}</div>
+      <div className="min-w-0 flex-1">{children}</div>
     </div>
   )
 }

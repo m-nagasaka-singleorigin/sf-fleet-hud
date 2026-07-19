@@ -1,9 +1,18 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function HudTable({ className, ...props }: React.ComponentProps<"table">) {
+function HudTable({
+  className,
+  containerClassName,
+  ...props
+}: React.ComponentProps<"table"> & { containerClassName?: string }) {
   return (
-    <div className="relative w-full overflow-x-auto border border-border bg-[#0F1113]">
+    <div
+      className={cn(
+        "relative w-full overflow-x-auto border border-border bg-[#0F1113]",
+        containerClassName
+      )}
+    >
       <table className={cn("w-full caption-bottom border-collapse text-sm", className)} {...props} />
     </div>
   )
