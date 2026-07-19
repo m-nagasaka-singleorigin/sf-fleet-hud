@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-hud-cyan",
   "type": "registry:theme",
-  "title": "HUD Theme — Cyan Accent",
+  "title": "HUD Theme \u2014 Cyan Accent",
   "description": "Cyan accent override for the HUD theme. Install after theme-hud; warnings and destructive tones stay warm.",
   "cssVars": {
     "dark": {
@@ -11,7 +11,8 @@
       "ring": "#33D1FF",
       "chart-1": "#33D1FF",
       "sidebar-primary": "#33D1FF",
-      "sidebar-ring": "#33D1FF"
+      "sidebar-ring": "#33D1FF",
+      "globe-dot": "#55C6E8"
     }
   }
 }

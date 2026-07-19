@@ -13,7 +13,6 @@ export type GlobeMarker = {
 }
 
 const PALETTE = {
-  dot: [138, 144, 148] as const, // #8A9094
   rim: "#33383C",
   sphere: "#0C0E10",
 }
@@ -100,11 +99,13 @@ function DotGlobe({
     // Resolve theme accents so the globe follows accent-color overrides,
     // re-resolving when the theme changes at runtime (e.g. data-accent toggle).
     let ar = 255, ag = 122, ab = 41, ir = 229, ig = 72, ib = 77
+    let dr = 138, dg = 144, db = 148
     let accent = "", incidentColor = ""
     const resolveColors = () => {
       const styles = getComputedStyle(canvas)
       ;[ar, ag, ab] = hexToRgb(styles.getPropertyValue("--primary"), [255, 122, 41])
       ;[ir, ig, ib] = hexToRgb(styles.getPropertyValue("--destructive"), [229, 72, 77])
+      ;[dr, dg, db] = hexToRgb(styles.getPropertyValue("--globe-dot"), [138, 144, 148])
       accent = `rgb(${ar},${ag},${ab})`
       incidentColor = `rgb(${ir},${ig},${ib})`
     }
@@ -192,17 +193,16 @@ function DotGlobe({
 
       // land dots (front hemisphere only, depth-faded squares)
       const ds = Math.max(1, 1.1 * dpr * st.zoom)
-      const [r, g, b] = PALETTE.dot
       if (dotGlow) ctx.globalCompositeOperation = "lighter"
       for (let i = 0; i < n; i++) {
         const [sx, sy, z] = project(vecs[i * 3], vecs[i * 3 + 1], vecs[i * 3 + 2], R, cx, cx)
         if (z <= 0) continue
         if (dotGlow) {
           const hs = ds * 3
-          ctx.fillStyle = `rgba(${r},${g},${b},${0.04 + 0.09 * z})`
+          ctx.fillStyle = `rgba(${dr},${dg},${db},${0.04 + 0.09 * z})`
           ctx.fillRect(sx - hs / 2, sy - hs / 2, hs, hs)
         }
-        ctx.fillStyle = `rgba(${r},${g},${b},${0.16 + 0.5 * z})`
+        ctx.fillStyle = `rgba(${dr},${dg},${db},${0.16 + 0.5 * z})`
         ctx.fillRect(sx - ds / 2, sy - ds / 2, ds, ds)
       }
       if (dotGlow) ctx.globalCompositeOperation = "source-over"

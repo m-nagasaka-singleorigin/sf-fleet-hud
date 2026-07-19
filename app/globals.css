@@ -59,6 +59,7 @@
   --primary-bright: #ffa05c;
   --primary-foreground: #0a0b0c;
   --warning: #ff7a29;
+  --globe-dot: #8a9094;
   --secondary: #26292c;
   --secondary-foreground: #c8ccce;
   --muted: #14171a;
@@ -102,6 +103,7 @@ html[data-accent="cyan"] {
   --chart-1: #33d1ff;
   --sidebar-primary: #33d1ff;
   --sidebar-ring: #33d1ff;
+  --globe-dot: #55c6e8;
 }
 
 /* Optional page-level effects, toggled via data attributes on <html>. */

@@ -35,7 +35,8 @@
           "input": "#3A3E42",
           "ring": "#FF7A29",
           "primary-bright": "#FFA05C",
-          "warning": "#FF7A29"
+          "warning": "#FF7A29",
+          "globe-dot": "#8A9094"
         }
       }
     },
@@ -51,7 +52,8 @@
           "ring": "#33D1FF",
           "chart-1": "#33D1FF",
           "sidebar-primary": "#33D1FF",
-          "sidebar-ring": "#33D1FF"
+          "sidebar-ring": "#33D1FF",
+          "globe-dot": "#55C6E8"
         }
       }
     },

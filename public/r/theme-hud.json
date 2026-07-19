@@ -31,7 +31,8 @@
       "input": "#3A3E42",
       "ring": "#FF7A29",
       "primary-bright": "#FFA05C",
-      "warning": "#FF7A29"
+      "warning": "#FF7A29",
+      "globe-dot": "#8A9094"
     }
   }
 }
