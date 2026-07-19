@@ -57,7 +57,6 @@ import {
   HudSheetFooter,
 } from "@/registry/hud/hud-sheet"
 import {
-  HudTooltipProvider,
   HudTooltip,
   HudTooltipTrigger,
   HudTooltipContent,
@@ -531,18 +530,16 @@ export default function Home() {
         </Section>
 
         <Section index="18" title="Tooltip" name="hud-tooltip">
-          <HudTooltipProvider>
-            <HudTooltip>
-              <HudTooltipTrigger asChild>
-                <span className="cursor-help border-b border-dashed border-[#4A5054] pb-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#8A9094]">
-                  Relay 3 Status
-                </span>
-              </HudTooltipTrigger>
-              <HudTooltipContent side="top">
-                LAST HANDSHAKE 13:58:44 UTC
-              </HudTooltipContent>
-            </HudTooltip>
-          </HudTooltipProvider>
+          <HudTooltip>
+            <HudTooltipTrigger asChild>
+              <span className="cursor-help border-b border-dashed border-[#4A5054] pb-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#8A9094]">
+                Relay 3 Status
+              </span>
+            </HudTooltipTrigger>
+            <HudTooltipContent side="top">
+              LAST HANDSHAKE 13:58:44 UTC
+            </HudTooltipContent>
+          </HudTooltip>
         </Section>
 
         <Section index="19" title="Toast" name="hud-sonner">

@@ -4,8 +4,22 @@ import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { cn } from "@/lib/utils"
 
-const HudTooltipProvider = TooltipPrimitive.Provider
-const HudTooltip = TooltipPrimitive.Root
+function HudTooltipProvider({
+  delayDuration = 0,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
+  return <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />
+}
+
+// Self-providing root: usable standalone, shows instantly on hover.
+function HudTooltip(props: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+  return (
+    <HudTooltipProvider>
+      <TooltipPrimitive.Root {...props} />
+    </HudTooltipProvider>
+  )
+}
+
 const HudTooltipTrigger = TooltipPrimitive.Trigger
 
 function HudTooltipContent({
@@ -20,7 +34,6 @@ function HudTooltipContent({
         sideOffset={sideOffset}
         className={cn(
           "z-50 border border-[#3A3E42] bg-popover px-3 py-[7px] font-mono text-[9px] tracking-[0.12em] text-[#C8CCCE] shadow-[0_8px_16px_rgba(0,0,0,0.5)]",
-          "data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0",
           className
         )}
         {...props}
