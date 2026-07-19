@@ -10,7 +10,11 @@ const EFFECTS = [
 ] as const
 
 export function EffectsToggles() {
-  const [on, setOn] = React.useState<Record<string, boolean>>({})
+  const [on, setOn] = React.useState<Record<string, boolean>>({
+    scanlines: true,
+    glow: true,
+    additive: true,
+  })
 
   React.useEffect(() => {
     for (const { key } of EFFECTS) {

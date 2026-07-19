@@ -39,7 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html
+      lang="en"
+      className="dark"
+      data-fx-scanlines="on"
+      data-fx-glow="on"
+      data-fx-additive="on"
+    >
       <body
         className={`${sairaCondensed.variable} ${shareTechMono.variable} antialiased`}
       >
