@@ -25,6 +25,7 @@ import {
   HudSelectValue,
 } from "@/registry/hud/hud-select"
 import { PanelTitleRow } from "@/components/dashboard/console-shell"
+import { formatDay } from "@/app/dashboard/format"
 import {
   TRANSMISSIONS,
   COMMS_CHANNELS,
@@ -99,7 +100,7 @@ function CommsLog() {
             )}
             {day && (
               <HudChip variant="active" onRemove={() => setDay(undefined)}>
-                {day.toISOString().slice(0, 10)}
+                {formatDay(day)}
               </HudChip>
             )}
             {COMMS_CHANNELS.filter((c) => !channels.has(c)).map((c) => (
@@ -143,7 +144,7 @@ function CommsLog() {
             <HudPopover>
               <HudPopoverTrigger asChild>
                 <HudButton variant="ghost" size="sm">
-                  {day ? day.toISOString().slice(0, 10) : "Date range"}
+                  {day ? formatDay(day) : "Date range"}
                 </HudButton>
               </HudPopoverTrigger>
               <HudPopoverContent className="w-auto p-0">
