@@ -1,23 +1,14 @@
 import * as React from "react"
-import Link from "next/link"
 import type { Metadata } from "next"
 import { cn } from "@/lib/utils"
-import { StatusBadge } from "@/registry/hud/status-badge"
 import { TelemetryBar } from "@/registry/hud/telemetry-bar"
 import { DotGlobe, type GlobeMarker } from "@/registry/hud/dot-globe"
 import { HudAlert } from "@/registry/hud/hud-alert"
-import {
-  HudAvatar,
-  HudAvatarFallback,
-  HudAvatarImage,
-  HudAvatarStatus,
-} from "@/registry/hud/hud-avatar"
 import { CrewCard } from "@/registry/hud/crew-card"
 import { HudTimeline, HudTimelineItem } from "@/registry/hud/hud-timeline"
 import { HudHeatmap } from "@/registry/hud/hud-heatmap"
-import { Clock } from "@/components/clock"
 import { UnitPanel } from "@/components/dashboard/unit-panel"
-import { CommandPalette } from "@/components/dashboard/command-palette"
+import { ConsoleShell, PanelTitleRow } from "@/components/dashboard/console-shell"
 import { CREW_ROSTER } from "@/app/crew-roster"
 import {
   FLEET_UNITS,
@@ -41,15 +32,6 @@ const STATIONS: GlobeMarker[] = [
 export const metadata: Metadata = {
   title: "SF FLEET HUD — Dashboard Demo",
 }
-
-const NAV = [
-  ["01", "Overview"],
-  ["02", "Units"],
-  ["03", "Drone Map"],
-  ["04", "Telemetry"],
-  ["05", "Comms Log"],
-  ["06", "Settings"],
-] as const
 
 type Stat = {
   label: string
@@ -78,123 +60,14 @@ const ALERTS = [
   { tone: "muted", text: "Rotation 04 shift change complete", time: "11:02" },
 ] as const
 
-// Signed-in officer and the watch roster shown at the bottom of the console.
-const OFFICER = CREW_ROSTER[4]
+// Watch roster shown at the bottom of the console.
 const ON_WATCH = [8, 0, 11, 7].map((i) => CREW_ROSTER[i])
-
-function PanelTitleRow({
-  title,
-  meta,
-  children,
-}: {
-  title: string
-  meta?: string
-  children?: React.ReactNode
-}) {
-  return (
-    <div className="flex items-center justify-between border-b border-[#1D2023] px-4 py-3">
-      <span className="font-sans text-[15px] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]">
-        {title}
-      </span>
-      {children ??
-        (meta && (
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]">
-            {meta}
-          </span>
-        ))}
-    </div>
-  )
-}
 
 export default function Dashboard() {
   return (
-    <div className="grid h-svh grid-cols-[216px_1fr] grid-rows-[56px_1fr] overflow-hidden bg-background">
-      {/* logo cell */}
-      <div className="flex items-center gap-2.5 border-r border-b border-[#1D2023] px-4">
-        <div className="grid size-6 place-items-center border border-primary font-sans text-[13px] font-bold text-primary">
-          SF
-        </div>
-        <div>
-          <div className="font-sans text-[15px] font-semibold uppercase tracking-[0.08em] text-foreground">
-            SF Fleet
-          </div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5A6065]">
-            Admin Console
-          </div>
-        </div>
-      </div>
-
-      {/* header */}
-      <div className="flex items-center justify-between border-b border-[#1D2023] px-5">
-        <div className="flex items-baseline gap-3">
-          <span className="font-sans text-[19px] font-semibold uppercase tracking-[0.1em] text-foreground">
-            Tactical Operations
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#5A6065]">
-            Sector 7 // Rotation 04
-          </span>
-        </div>
-        <div className="flex items-center gap-5">
-          <StatusBadge variant="live" dot>
-            Uplink Active
-          </StatusBadge>
-          <Clock />
-          <CommandPalette units={FLEET_UNITS} />
-          <Link
-            href="/"
-            className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#5A6065] transition-colors hover:text-primary"
-          >
-            ← Catalog
-          </Link>
-        </div>
-      </div>
-
-      {/* sidebar */}
-      <div className="flex flex-col gap-0.5 overflow-y-auto border-r border-[#1D2023] py-4">
-        <div className="px-4 pb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">
-          Navigation
-        </div>
-        {NAV.map(([num, label], i) => (
-          <div
-            key={num}
-            className={cn(
-              "flex cursor-pointer items-center gap-2.5 border-l-2 px-4 py-[9px]",
-              i === 0 ? "border-primary bg-[#121517]" : "border-transparent hover:bg-[#101214]"
-            )}
-          >
-            <span className={cn("font-mono text-[10px]", i === 0 ? "text-primary" : "text-[#4A5054]")}>
-              {num}
-            </span>
-            <span
-              className={cn(
-                "font-sans text-[15px] uppercase tracking-[0.12em]",
-                i === 0 ? "font-medium text-foreground" : "font-normal text-[#8A9094]"
-              )}
-            >
-              {label}
-            </span>
-          </div>
-        ))}
-        <div className="flex-1" />
-        <div className="mx-3 flex items-center gap-2.5 border border-[#1D2023] px-3 py-2.5">
-          <HudAvatar size="sm" variant="strong">
-            <HudAvatarImage src={OFFICER.photo} alt="" />
-            <HudAvatarFallback>PN</HudAvatarFallback>
-            <HudAvatarStatus />
-          </HudAvatar>
-          <div className="min-w-0">
-            <div className="truncate font-sans text-sm font-medium uppercase tracking-[0.1em] text-[#C8CCCE]">
-              {OFFICER.name}
-            </div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]">
-              Clearance A-1
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <ConsoleShell active="01" title="Tactical Operations" meta="Sector 7 // Rotation 04">
       {/* main */}
-      <div className="flex flex-col gap-3.5 overflow-y-auto p-5 pt-4">
+      <div className="flex flex-1 flex-col gap-3.5 p-5 pt-4">
         {/* stat cards */}
         <div className="grid grid-cols-4 gap-3.5">
           {STATS.map((s) => (
@@ -391,6 +264,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </ConsoleShell>
   )
 }

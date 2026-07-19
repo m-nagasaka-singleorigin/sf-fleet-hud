@@ -150,14 +150,33 @@ function HudLineChart({
         {width > 0 && (
           <svg width={width} height={height} className="block">
             {band && (
-              <rect
-                x={pad.l}
-                y={y(band.to)}
-                width={plotW}
-                height={Math.abs(y(band.from) - y(band.to))}
-                fill="var(--warning)"
-                opacity={0.09}
-              />
+              <g>
+                <rect
+                  x={pad.l}
+                  y={Math.min(y(band.from), y(band.to))}
+                  width={plotW}
+                  height={Math.abs(y(band.from) - y(band.to))}
+                  fill="var(--warning)"
+                  opacity={0.08}
+                />
+                {/* Dashed edges keep the band reading as a threshold rather than
+                    as another filled series. */}
+                {[band.from, band.to].map((v) =>
+                  v <= lo || v >= hi ? null : (
+                    <line
+                      key={v}
+                      x1={pad.l}
+                      y1={y(v)}
+                      x2={pad.l + plotW}
+                      y2={y(v)}
+                      stroke="var(--warning)"
+                      strokeWidth="1"
+                      strokeDasharray="3 3"
+                      opacity={0.4}
+                    />
+                  )
+                )}
+              </g>
             )}
 
             {yTicks.map((t) => (
