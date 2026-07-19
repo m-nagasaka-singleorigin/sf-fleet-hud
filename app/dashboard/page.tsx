@@ -328,7 +328,7 @@ export default function Dashboard() {
               </span>
               <Link
                 href="/"
-                className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary hover:text-[#FFA05C]"
+                className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary hover:text-primary-bright"
               >
                 View All →
               </Link>

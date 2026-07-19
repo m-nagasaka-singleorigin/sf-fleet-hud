@@ -16,8 +16,13 @@ const PALETTE = {
   dot: [138, 144, 148] as const, // #8A9094
   rim: "#33383C",
   sphere: "#0C0E10",
-  ok: "#FF7A29",
-  incident: "#E5484D",
+}
+
+function hexToRgb(hex: string, fallback: [number, number, number]): [number, number, number] {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim())
+  if (!m) return fallback
+  const v = parseInt(m[1], 16)
+  return [(v >> 16) & 255, (v >> 8) & 255, v & 255]
 }
 
 // Decode [lat, lon] centidegree pairs into unit vectors (x, y, z).
@@ -92,6 +97,12 @@ function DotGlobe({
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    // Resolve theme accents so the globe follows accent-color overrides.
+    const styles = getComputedStyle(canvas)
+    const [ar, ag, ab] = hexToRgb(styles.getPropertyValue("--primary"), [255, 122, 41])
+    const [ir, ig, ib] = hexToRgb(styles.getPropertyValue("--destructive"), [229, 72, 77])
+    const accent = `rgb(${ar},${ag},${ab})`
+    const incidentColor = `rgb(${ir},${ig},${ib})`
     canvas.width = size * dpr
     canvas.height = size * dpr
 
@@ -145,18 +156,18 @@ function DotGlobe({
       if (edgeGlow) {
         // outer bloom
         ctx.save()
-        ctx.shadowColor = "rgba(255,122,41,0.55)"
+        ctx.shadowColor = `rgba(${ar},${ag},${ab},0.55)`
         ctx.shadowBlur = 16 * dpr
         ctx.beginPath()
         ctx.arc(cx, cx, R, 0, Math.PI * 2)
         ctx.lineWidth = 1.5 * dpr
-        ctx.strokeStyle = "rgba(255,122,41,0.5)"
+        ctx.strokeStyle = `rgba(${ar},${ag},${ab},0.5)`
         ctx.stroke()
         ctx.restore()
         // inner atmosphere
         const atm = ctx.createRadialGradient(cx, cx, R * 0.78, cx, cx, R)
-        atm.addColorStop(0, "rgba(255,122,41,0)")
-        atm.addColorStop(1, "rgba(255,122,41,0.09)")
+        atm.addColorStop(0, `rgba(${ar},${ag},${ab},0)`)
+        atm.addColorStop(1, `rgba(${ar},${ag},${ab},0.09)`)
         ctx.beginPath()
         ctx.arc(cx, cx, R, 0, Math.PI * 2)
         ctx.fillStyle = atm
@@ -190,7 +201,7 @@ function DotGlobe({
         const [sx, sy, z] = project(m.vec[0], m.vec[1], m.vec[2], R, cx, cx)
         if (z <= 0.02) continue
         const incident = m.status === "incident"
-        const color = incident ? PALETTE.incident : PALETTE.ok
+        const color = incident ? incidentColor : accent
         const s = (incident ? 5 : 4) * dpr
 
         if (incident) {
@@ -199,7 +210,7 @@ function DotGlobe({
           const pr = s + t * 11 * dpr
           ctx.beginPath()
           ctx.arc(sx, sy, pr, 0, Math.PI * 2)
-          ctx.strokeStyle = `rgba(229,72,77,${0.55 * (1 - t)})`
+          ctx.strokeStyle = `rgba(${ir},${ig},${ib},${0.55 * (1 - t)})`
           ctx.lineWidth = 1 * dpr
           ctx.stroke()
         }
@@ -215,7 +226,7 @@ function DotGlobe({
 
         if (incident) {
           ctx.font = `${10 * dpr}px "Share Tech Mono", monospace`
-          ctx.fillStyle = PALETTE.incident
+          ctx.fillStyle = incidentColor
           const blink = reduced ? 1 : Math.sin(now / 260) > -0.4 ? 1 : 0.35
           ctx.globalAlpha = blink
           ctx.fillText(`${m.code.toUpperCase()} — INCIDENT`, sx + 10 * dpr, sy - 8 * dpr)

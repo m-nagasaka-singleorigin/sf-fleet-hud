@@ -7,10 +7,10 @@ function TelemetryBar({ className, label, value, max = 100, unit = "%", warn = f
     <div className={cn("w-full", className)} {...props}>
       <div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E7478]">
         <span>{label}</span>
-        <span className={warn ? "text-primary" : "text-[#C8CCCE]"}>{value}{unit}</span>
+        <span className={warn ? "text-warning" : "text-[#C8CCCE]"}>{value}{unit}</span>
       </div>
       <div className="mt-1.5 h-[3px] bg-[#1D2023]">
-        <div className={cn("h-full", warn ? "bg-primary" : "bg-[#8A9094]")} style={{ width: pct + "%" }} />
+        <div className={cn("h-full", warn ? "bg-warning" : "bg-[#8A9094]")} style={{ width: pct + "%" }} />
       </div>
     </div>
   )

@@ -33,7 +33,25 @@
           "destructive-foreground": "#E8ECEE",
           "border": "#26292C",
           "input": "#3A3E42",
-          "ring": "#FF7A29"
+          "ring": "#FF7A29",
+          "primary-bright": "#FFA05C",
+          "warning": "#FF7A29"
+        }
+      }
+    },
+    {
+      "name": "theme-hud-cyan",
+      "type": "registry:theme",
+      "title": "HUD Theme \u2014 Cyan Accent",
+      "description": "Cyan accent override for the HUD theme. Install after theme-hud; warnings and destructive tones stay warm.",
+      "cssVars": {
+        "dark": {
+          "primary": "#33D1FF",
+          "primary-bright": "#7AE0FF",
+          "ring": "#33D1FF",
+          "chart-1": "#33D1FF",
+          "sidebar-primary": "#33D1FF",
+          "sidebar-ring": "#33D1FF"
         }
       }
     },

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "registry:build": "shadcn build && cp registry/hud/theme.json public/r/theme-hud.json"
+    "registry:build": "shadcn build && cp registry/hud/theme.json public/r/theme-hud.json && cp registry/hud/theme-cyan.json public/r/theme-hud-cyan.json"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.16",

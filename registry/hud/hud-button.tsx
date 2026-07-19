@@ -9,7 +9,7 @@ const hudButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground font-semibold hover:bg-[#FFA05C] " + CLIP,
+        default: "bg-primary text-primary-foreground font-semibold hover:bg-primary-bright " + CLIP,
         secondary: "bg-secondary text-foreground font-medium hover:bg-[#33383C]",
         outline: "border border-[#3A3E42] bg-transparent text-[#C8CCCE] font-medium hover:border-primary hover:text-primary",
         ghost: "bg-transparent text-muted-foreground font-medium hover:text-foreground",
