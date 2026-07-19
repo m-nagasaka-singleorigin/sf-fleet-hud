@@ -136,6 +136,8 @@ import { HudCalendar } from "@/registry/hud/hud-calendar"
 import { HudGauge } from "@/registry/hud/hud-gauge"
 import { HudSparkline } from "@/registry/hud/hud-sparkline"
 import { HudHeatmap } from "@/registry/hud/hud-heatmap"
+import { HudLineChart } from "@/registry/hud/hud-line-chart"
+import { HudBarChart } from "@/registry/hud/hud-bar-chart"
 import { HudTimeline, HudTimelineItem } from "@/registry/hud/hud-timeline"
 import { HudTree, HudTreeBranch, HudTreeLeaf } from "@/registry/hud/hud-tree"
 import { HudDropzone } from "@/registry/hud/hud-dropzone"
@@ -165,6 +167,10 @@ const AWS_REGIONS: GlobeMarker[] = [
   { code: "ap-northeast-2", lat: 37.6, lon: 127.0 },
   { code: "ap-northeast-3", lat: 34.7, lon: 135.5 },
 ]
+
+const CHART_CYCLES = Array.from({ length: 12 }, (_, i) =>
+  `${String(i * 2).padStart(2, "0")}:00`
+)
 
 function Section({
   index,
@@ -1040,6 +1046,67 @@ export default function Home() {
               Portraits are demo assets — pass your own via the photo prop. Omit it
               and the card falls back to initials.
             </p>
+          </div>
+        </Section>
+
+        <Section index="34" title="Line Chart" name="hud-line-chart">
+          <div className="w-full border border-border bg-[#0F1113] px-4 py-4">
+            <div className="mb-3 flex justify-between">
+              <span className="font-sans text-[15px] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]">
+                Reactor History
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#5A6065]">
+                Last 12 Cycles // Caution 80–100
+              </span>
+            </div>
+            <HudLineChart
+              height={220}
+              unit="%"
+              min={0}
+              max={100}
+              band={{ from: 80, to: 100 }}
+              labels={CHART_CYCLES}
+              series={[
+                { name: "Reactor", values: [62, 68, 66, 74, 71, 78, 84, 79, 73, 76, 81, 88] },
+                { name: "Coolant", values: [48, 45, 52, 44, 41, 38, 34, 37, 43, 40, 36, 31] },
+                { name: "Shield", values: [88, 86, 90, 87, 91, 89, 92, 88, 85, 90, 93, 91] },
+              ]}
+            />
+          </div>
+        </Section>
+
+        <Section index="35" title="Bar Chart" name="hud-bar-chart">
+          <div className="grid w-full gap-4 lg:grid-cols-2">
+            <div className="border border-border bg-[#0F1113] px-4 py-4">
+              <div className="mb-3 font-sans text-[15px] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]">
+                Sorties by Wing
+              </div>
+              <HudBarChart
+                height={180}
+                data={[
+                  { label: "Nova", values: [42, 28] },
+                  { label: "Kestrel", values: [36, 31] },
+                  { label: "Vanta", values: [29, 18] },
+                  { label: "Phoenix", values: [47, 35] },
+                  { label: "Aurora", values: [21, 14] },
+                ]}
+                series={["Flown", "Engaged"]}
+              />
+            </div>
+            <div className="border border-border bg-[#0F1113] px-4 py-4">
+              <div className="mb-3 font-sans text-[15px] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]">
+                Contacts by Sector
+              </div>
+              <HudBarChart
+                horizontal
+                data={[
+                  { label: "Sector 1", values: [18] },
+                  { label: "Sector 4", values: [31] },
+                  { label: "Sector 7", values: [44] },
+                  { label: "Sector 9", values: [12] },
+                ]}
+              />
+            </div>
           </div>
         </Section>
       </main>

@@ -652,6 +652,36 @@
       ]
     },
     {
+      "name": "hud-line-chart",
+      "type": "registry:ui",
+      "title": "HUD Line Chart",
+      "description": "Dependency-free SVG time-series plot: multi-series with dash-pattern separation, axis grid, caution band, direct end-labels and a hover crosshair readout.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-line-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hud-bar-chart",
+      "type": "registry:ui",
+      "title": "HUD Bar Chart",
+      "description": "Dependency-free categorical bar chart: vertical or horizontal, grouped series with 2px surface gaps and per-bar hover readout.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "hud-heatmap",
       "type": "registry:ui",
       "title": "HUD Heatmap",
