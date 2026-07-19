@@ -16,7 +16,6 @@ import { SegmentBar } from "@/registry/hud/segment-bar"
 import { HudKbd } from "@/registry/hud/hud-kbd"
 import { HudSkeleton } from "@/registry/hud/hud-skeleton"
 import { Radar } from "@/registry/hud/radar"
-import { Gyro } from "@/registry/hud/gyro"
 import { HudLabel } from "@/registry/hud/hud-label"
 import { HudInput } from "@/registry/hud/hud-input"
 import { HudTextarea } from "@/registry/hud/hud-textarea"
@@ -235,7 +234,14 @@ export default function Home() {
         </HudPanelHeader>
         <HudPanelContent className="grid gap-5 lg:grid-cols-[auto_1fr_1fr]">
           <div className="flex items-center justify-center">
-            <Radar size={200} />
+            <DotGlobe
+              size={200}
+              markers={AWS_REGIONS}
+              initialLon={-77}
+              initialLat={30}
+              edgeGlow
+              dotGlow
+            />
           </div>
           <div className="flex flex-col justify-center gap-4">
             <div className="flex items-center gap-5">
@@ -272,7 +278,7 @@ export default function Home() {
           </div>
         </HudPanelContent>
         <HudPanelFooter>
-          <HudPanelMeta>Composed from hud-panel · radar · gauge · sparkline · telemetry-bar · timeline</HudPanelMeta>
+          <HudPanelMeta>Composed from hud-panel · dot-globe · gauge · sparkline · telemetry-bar · timeline</HudPanelMeta>
           <HudKbd>⌘K</HudKbd>
         </HudPanelFooter>
       </HudPanel>
@@ -334,7 +340,52 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section index="07" title="Radar" name="radar">
+        <Section index="07" title="Dot Globe" name="dot-globe">
+          <div className="grid w-full items-center gap-6 lg:grid-cols-[auto_1fr]">
+            <DotGlobe
+              size={360}
+              markers={AWS_REGIONS}
+              initialLon={-77}
+              initialLat={30}
+              edgeGlow
+              dotGlow
+            />
+            <div className="flex max-w-md flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">
+                  Region Status
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
+                  {AWS_REGIONS.length} regions monitored
+                </span>
+              </div>
+              <div className="flex items-center justify-between border border-destructive/45 bg-destructive/5 px-3 py-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-destructive">
+                  us-east-1
+                </span>
+                <StatusBadge variant="critical" dot>
+                  Incident
+                </StatusBadge>
+              </div>
+              {["eu-central-1", "ap-northeast-1", "us-west-2"].map((c) => (
+                <div
+                  key={c}
+                  className="flex items-center justify-between border border-border px-3 py-2"
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#C8CCCE]">
+                    {c}
+                  </span>
+                  <StatusBadge variant="patrol">Operational</StatusBadge>
+                </div>
+              ))}
+              <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#4A5054]">
+                Drag to rotate — wheel to zoom
+              </span>
+            </div>
+          </div>
+        </Section>
+
+        <Section index="08" title="Radar" name="radar">
           <div className="flex flex-wrap items-start gap-10">
             <div className="flex flex-col items-center gap-2">
               <Radar size={240} />
@@ -359,10 +410,6 @@ export default function Home() {
               </span>
             </div>
           </div>
-        </Section>
-
-        <Section index="08" title="Gyro" name="gyro">
-          <Gyro size={240} />
         </Section>
 
         <Section index="09" title="Panel" name="hud-panel">
@@ -968,50 +1015,6 @@ export default function Home() {
                 </span>
               </div>
             ))}
-          </div>
-        </Section>
-        <Section index="33" title="Dot Globe" name="dot-globe">
-          <div className="grid w-full items-center gap-6 lg:grid-cols-[auto_1fr]">
-            <DotGlobe
-              size={360}
-              markers={AWS_REGIONS}
-              initialLon={-77}
-              initialLat={30}
-              edgeGlow
-              dotGlow
-            />
-            <div className="flex max-w-md flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">
-                  Region Status
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
-                  {AWS_REGIONS.length} regions monitored
-                </span>
-              </div>
-              <div className="flex items-center justify-between border border-destructive/45 bg-destructive/5 px-3 py-2">
-                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-destructive">
-                  us-east-1
-                </span>
-                <StatusBadge variant="critical" dot>
-                  Incident
-                </StatusBadge>
-              </div>
-              {["eu-central-1", "ap-northeast-1", "us-west-2"].map((c) => (
-                <div
-                  key={c}
-                  className="flex items-center justify-between border border-border px-3 py-2"
-                >
-                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#C8CCCE]">
-                    {c}
-                  </span>
-                  <StatusBadge variant="patrol">Operational</StatusBadge>
-                </div>
-              ))}
-              <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#4A5054]">
-                Drag to rotate — wheel to zoom
-              </span>
-            </div>
           </div>
         </Section>
       </main>

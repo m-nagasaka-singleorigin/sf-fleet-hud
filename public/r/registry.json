@@ -164,21 +164,6 @@
       ]
     },
     {
-      "name": "gyro",
-      "type": "registry:ui",
-      "title": "Gyro",
-      "description": "Decorative 3D ship-gyro attitude widget.",
-      "registryDependencies": [
-        "utils"
-      ],
-      "files": [
-        {
-          "path": "registry/hud/gyro.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "hud-label",
       "type": "registry:ui",
       "title": "HUD Label",

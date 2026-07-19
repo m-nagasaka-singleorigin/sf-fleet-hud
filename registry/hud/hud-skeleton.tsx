@@ -10,7 +10,7 @@ function HudSkeleton({ className, ...props }: React.ComponentProps<"div">) {
         aria-hidden
         className="block size-full motion-safe:animate-[hud-skel_1.8s_linear_infinite]"
         style={{
-          background: "linear-gradient(100deg, transparent 35%, rgba(220,228,234,0.09) 50%, transparent 65%)",
+          background: "linear-gradient(90deg, transparent 35%, rgba(220,228,234,0.09) 50%, transparent 65%)",
           backgroundSize: "180px 100%",
           backgroundRepeat: "no-repeat",
         }}

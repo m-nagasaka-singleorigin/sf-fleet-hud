@@ -4,8 +4,20 @@ import type { Metadata } from "next"
 import { cn } from "@/lib/utils"
 import { StatusBadge } from "@/registry/hud/status-badge"
 import { TelemetryBar } from "@/registry/hud/telemetry-bar"
-import { Radar } from "@/registry/hud/radar"
+import { DotGlobe, type GlobeMarker } from "@/registry/hud/dot-globe"
 import { Clock } from "@/components/clock"
+
+const STATIONS: GlobeMarker[] = [
+  { code: "D-0203", lat: 28.4, lon: -80.6, status: "incident" },
+  { code: "gs-dc", lat: 38.9, lon: -77.4 },
+  { code: "gs-van", lat: 49.3, lon: -123.1 },
+  { code: "gs-hi", lat: 21.3, lon: -157.9 },
+  { code: "gs-sp", lat: -23.5, lon: -46.6 },
+  { code: "gs-ldn", lat: 51.5, lon: -0.1 },
+  { code: "gs-tyo", lat: 35.7, lon: 139.7 },
+  { code: "gs-sin", lat: 1.35, lon: 103.8 },
+  { code: "gs-syd", lat: -33.9, lon: 151.2 },
+]
 
 export const metadata: Metadata = {
   title: "SF FLEET HUD — Dashboard Demo",
@@ -217,7 +229,14 @@ export default function Dashboard() {
           <div className="relative flex flex-col border border-border bg-[#0F1113] before:absolute before:-top-px before:-left-px before:size-2.5 before:border-t before:border-l before:border-primary">
             <PanelTitleRow title="Sector Scan" meta="Range 40K // Auto" />
             <div className="grid flex-1 place-items-center p-3">
-              <Radar size={280} />
+              <DotGlobe
+                size={280}
+                markers={STATIONS}
+                initialLon={-80}
+                initialLat={28}
+                edgeGlow
+                dotGlow
+              />
             </div>
             <div className="grid grid-cols-3 border-t border-[#1D2023]">
               {(
