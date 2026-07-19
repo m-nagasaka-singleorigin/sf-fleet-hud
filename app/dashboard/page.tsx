@@ -228,9 +228,9 @@ export default function Dashboard() {
           {/* radar panel */}
           <div className="relative flex flex-col border border-border bg-[#0F1113] before:absolute before:-top-px before:-left-px before:size-2.5 before:border-t before:border-l before:border-primary">
             <PanelTitleRow title="Sector Scan" meta="Range 40K // Auto" />
-            <div className="grid flex-1 place-items-center p-3">
+            <div className="relative min-h-0 flex-1 p-3">
               <DotGlobe
-                size={280}
+                fill
                 markers={STATIONS}
                 initialLon={-80}
                 initialLat={28}

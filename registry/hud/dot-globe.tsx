@@ -56,6 +56,7 @@ function toVec(lat: number, lon: number): [number, number, number] {
 function DotGlobe({
   className,
   size = 340,
+  fill = false,
   markers = [],
   autoRotate = true,
   initialLon = -50,
@@ -65,6 +66,8 @@ function DotGlobe({
   ...props
 }: React.ComponentProps<"div"> & {
   size?: number
+  /** Fill the parent element and track its size (overrides `size`). */
+  fill?: boolean
   markers?: GlobeMarker[]
   autoRotate?: boolean
   initialLon?: number
@@ -74,6 +77,7 @@ function DotGlobe({
   /** Additive halo behind each land dot. */
   dotGlow?: boolean
 }) {
+  const wrapRef = React.useRef<HTMLDivElement>(null)
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const stateRef = React.useRef({
     yaw: ((initialLon - 90) * Math.PI) / 180,
@@ -90,7 +94,8 @@ function DotGlobe({
 
   React.useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    const wrap = wrapRef.current
+    if (!canvas || !wrap) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
@@ -115,8 +120,19 @@ function DotGlobe({
       attributes: true,
       attributeFilter: ["data-accent", "class", "style"],
     })
-    canvas.width = size * dpr
-    canvas.height = size * dpr
+
+    // Size the backing store to the wrapper (fill) or the fixed size prop.
+    const measure = () => {
+      const cssW = fill ? wrap.clientWidth : size
+      const cssH = fill ? wrap.clientHeight : size
+      const w = Math.round(Math.max(1, cssW) * dpr)
+      const h = Math.round(Math.max(1, cssH) * dpr)
+      if (canvas.width !== w) canvas.width = w
+      if (canvas.height !== h) canvas.height = h
+    }
+    measure()
+    const ro = fill ? new ResizeObserver(measure) : null
+    ro?.observe(wrap)
 
     const vecs = landVecs()
     const n = vecs.length / 3
@@ -155,14 +171,16 @@ function DotGlobe({
         st.yaw += dt * 0.05
       }
 
-      const w = size * dpr
+      const w = canvas.width
+      const h = canvas.height
       const cx = w / 2
-      const R = (w / 2 - 8 * dpr) * st.zoom
-      ctx.clearRect(0, 0, w, w)
+      const cy = h / 2
+      const R = (Math.min(w, h) / 2 - 8 * dpr) * st.zoom
+      ctx.clearRect(0, 0, w, h)
 
       // sphere disc + rim
       ctx.beginPath()
-      ctx.arc(cx, cx, R, 0, Math.PI * 2)
+      ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.fillStyle = PALETTE.sphere
       ctx.fill()
       if (edgeGlow) {
@@ -171,31 +189,32 @@ function DotGlobe({
         ctx.shadowColor = `rgba(${ar},${ag},${ab},0.55)`
         ctx.shadowBlur = 16 * dpr
         ctx.beginPath()
-        ctx.arc(cx, cx, R, 0, Math.PI * 2)
+        ctx.arc(cx, cy, R, 0, Math.PI * 2)
         ctx.lineWidth = 1.5 * dpr
         ctx.strokeStyle = `rgba(${ar},${ag},${ab},0.5)`
         ctx.stroke()
         ctx.restore()
         // inner atmosphere
-        const atm = ctx.createRadialGradient(cx, cx, R * 0.78, cx, cx, R)
+        const atm = ctx.createRadialGradient(cx, cy, R * 0.78, cx, cy, R)
         atm.addColorStop(0, `rgba(${ar},${ag},${ab},0)`)
         atm.addColorStop(1, `rgba(${ar},${ag},${ab},0.09)`)
         ctx.beginPath()
-        ctx.arc(cx, cx, R, 0, Math.PI * 2)
+        ctx.arc(cx, cy, R, 0, Math.PI * 2)
         ctx.fillStyle = atm
         ctx.fill()
       }
       ctx.lineWidth = 1 * dpr
       ctx.strokeStyle = PALETTE.rim
       ctx.beginPath()
-      ctx.arc(cx, cx, R, 0, Math.PI * 2)
+      ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.stroke()
 
-      // land dots (front hemisphere only, depth-faded squares)
-      const ds = Math.max(1, 1.1 * dpr * st.zoom)
+      // land dots (front hemisphere only, depth-faded squares).
+      // Dot size tracks the radius so density reads the same at any scale.
+      const ds = Math.max(1, (R / (132 * dpr)) * 1.1 * dpr)
       if (dotGlow) ctx.globalCompositeOperation = "lighter"
       for (let i = 0; i < n; i++) {
-        const [sx, sy, z] = project(vecs[i * 3], vecs[i * 3 + 1], vecs[i * 3 + 2], R, cx, cx)
+        const [sx, sy, z] = project(vecs[i * 3], vecs[i * 3 + 1], vecs[i * 3 + 2], R, cx, cy)
         if (z <= 0) continue
         if (dotGlow) {
           const hs = ds * 3
@@ -209,7 +228,7 @@ function DotGlobe({
 
       // markers
       for (const m of markerVecs) {
-        const [sx, sy, z] = project(m.vec[0], m.vec[1], m.vec[2], R, cx, cx)
+        const [sx, sy, z] = project(m.vec[0], m.vec[1], m.vec[2], R, cx, cy)
         if (z <= 0.02) continue
         const incident = m.status === "incident"
         const color = incident ? incidentColor : accent
@@ -301,19 +320,31 @@ function DotGlobe({
     return () => {
       cancelAnimationFrame(raf)
       observer.disconnect()
+      ro?.disconnect()
       canvas.removeEventListener("pointerdown", onPointerDown)
       canvas.removeEventListener("pointermove", onPointerMove)
       canvas.removeEventListener("pointerup", onPointerUp)
       canvas.removeEventListener("pointercancel", onPointerUp)
       canvas.removeEventListener("wheel", onWheel)
     }
-  }, [size, markers, autoRotate, edgeGlow, dotGlow])
+  }, [size, fill, markers, autoRotate, edgeGlow, dotGlow])
 
   return (
-    <div aria-hidden className={cn("relative select-none", className)} {...props}>
+    <div
+      ref={wrapRef}
+      aria-hidden
+      className={cn("relative select-none", fill && "size-full", className)}
+      style={fill ? undefined : { width: size, height: size }}
+      {...props}
+    >
       <canvas
         ref={canvasRef}
-        style={{ width: size, height: size, touchAction: "none", cursor: "grab" }}
+        className={cn(fill && "absolute inset-0 size-full")}
+        style={
+          fill
+            ? { touchAction: "none", cursor: "grab" }
+            : { width: size, height: size, touchAction: "none", cursor: "grab" }
+        }
       />
     </div>
   )
