@@ -1028,10 +1028,10 @@ export default function Home() {
                 <CrewCard key={CREW_ROSTER[i].id} crew={CREW_ROSTER[i]} />
               ))}
             </div>
-            <div className="flex flex-wrap items-start gap-3">
-              <CrewCard className="w-[300px]" crew={CREW_ROSTER[8]} showTelemetry={false} />
+            {/* Same track sizing as the grid above so every card matches width. */}
+            <div className="grid w-full items-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <CrewCard crew={CREW_ROSTER[8]} showTelemetry={false} />
               <CrewCard
-                className="w-[300px]"
                 crew={{ ...CREW_ROSTER[17], photo: undefined }}
                 showTelemetry={false}
               />
