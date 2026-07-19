@@ -972,7 +972,14 @@ export default function Home() {
         </Section>
         <Section index="33" title="Dot Globe" name="dot-globe">
           <div className="grid w-full items-center gap-6 lg:grid-cols-[auto_1fr]">
-            <DotGlobe size={360} markers={AWS_REGIONS} initialLon={-77} initialLat={30} />
+            <DotGlobe
+              size={360}
+              markers={AWS_REGIONS}
+              initialLon={-77}
+              initialLat={30}
+              edgeGlow
+              dotGlow
+            />
             <div className="flex max-w-md flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">

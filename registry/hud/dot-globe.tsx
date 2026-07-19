@@ -56,6 +56,8 @@ function DotGlobe({
   autoRotate = true,
   initialLon = -50,
   initialLat = 22,
+  edgeGlow = false,
+  dotGlow = false,
   ...props
 }: React.ComponentProps<"div"> & {
   size?: number
@@ -63,6 +65,10 @@ function DotGlobe({
   autoRotate?: boolean
   initialLon?: number
   initialLat?: number
+  /** Soft accent bloom around the globe rim. */
+  edgeGlow?: boolean
+  /** Additive halo behind each land dot. */
+  dotGlow?: boolean
 }) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const stateRef = React.useRef({
@@ -72,6 +78,9 @@ function DotGlobe({
     dragging: false,
     lastX: 0,
     lastY: 0,
+    lastMoveT: 0,
+    vyaw: 0,
+    vpitch: 0,
     lastInteraction: 0,
   })
 
@@ -107,9 +116,19 @@ function DotGlobe({
     }
 
     const draw = (now: number) => {
-      const dt = (now - prev) / 1000
+      const dt = Math.min((now - prev) / 1000, 0.1)
       prev = now
-      if (autoRotate && !reduced && !st.dragging && now - st.lastInteraction > 2500) {
+
+      // inertia after release
+      const coasting = Math.abs(st.vyaw) > 0.002 || Math.abs(st.vpitch) > 0.002
+      if (!st.dragging && coasting) {
+        st.yaw += st.vyaw * dt
+        st.pitch = Math.max(-1.3, Math.min(1.3, st.pitch + st.vpitch * dt))
+        const decay = Math.exp(-dt * 3)
+        st.vyaw *= decay
+        st.vpitch *= decay
+      }
+      if (autoRotate && !reduced && !st.dragging && !coasting && now - st.lastInteraction > 2500) {
         st.yaw += dt * 0.05
       }
 
@@ -123,19 +142,48 @@ function DotGlobe({
       ctx.arc(cx, cx, R, 0, Math.PI * 2)
       ctx.fillStyle = PALETTE.sphere
       ctx.fill()
+      if (edgeGlow) {
+        // outer bloom
+        ctx.save()
+        ctx.shadowColor = "rgba(255,122,41,0.55)"
+        ctx.shadowBlur = 16 * dpr
+        ctx.beginPath()
+        ctx.arc(cx, cx, R, 0, Math.PI * 2)
+        ctx.lineWidth = 1.5 * dpr
+        ctx.strokeStyle = "rgba(255,122,41,0.5)"
+        ctx.stroke()
+        ctx.restore()
+        // inner atmosphere
+        const atm = ctx.createRadialGradient(cx, cx, R * 0.78, cx, cx, R)
+        atm.addColorStop(0, "rgba(255,122,41,0)")
+        atm.addColorStop(1, "rgba(255,122,41,0.09)")
+        ctx.beginPath()
+        ctx.arc(cx, cx, R, 0, Math.PI * 2)
+        ctx.fillStyle = atm
+        ctx.fill()
+      }
       ctx.lineWidth = 1 * dpr
       ctx.strokeStyle = PALETTE.rim
+      ctx.beginPath()
+      ctx.arc(cx, cx, R, 0, Math.PI * 2)
       ctx.stroke()
 
       // land dots (front hemisphere only, depth-faded squares)
       const ds = Math.max(1, 1.1 * dpr * st.zoom)
       const [r, g, b] = PALETTE.dot
+      if (dotGlow) ctx.globalCompositeOperation = "lighter"
       for (let i = 0; i < n; i++) {
         const [sx, sy, z] = project(vecs[i * 3], vecs[i * 3 + 1], vecs[i * 3 + 2], R, cx, cx)
         if (z <= 0) continue
+        if (dotGlow) {
+          const hs = ds * 3
+          ctx.fillStyle = `rgba(${r},${g},${b},${0.04 + 0.09 * z})`
+          ctx.fillRect(sx - hs / 2, sy - hs / 2, hs, hs)
+        }
         ctx.fillStyle = `rgba(${r},${g},${b},${0.16 + 0.5 * z})`
         ctx.fillRect(sx - ds / 2, sy - ds / 2, ds, ds)
       }
+      if (dotGlow) ctx.globalCompositeOperation = "source-over"
 
       // markers
       for (const m of markerVecs) {
@@ -183,21 +231,37 @@ function DotGlobe({
       st.dragging = true
       st.lastX = e.clientX
       st.lastY = e.clientY
+      st.lastMoveT = performance.now()
+      st.vyaw = 0
+      st.vpitch = 0
       canvas.setPointerCapture(e.pointerId)
     }
     const onPointerMove = (e: PointerEvent) => {
       if (!st.dragging) return
+      const now = performance.now()
+      const dtm = Math.max((now - st.lastMoveT) / 1000, 0.001)
       const dx = e.clientX - st.lastX
       const dy = e.clientY - st.lastY
       st.lastX = e.clientX
       st.lastY = e.clientY
-      st.yaw -= (dx * 0.006) / st.zoom
-      st.pitch += (dy * 0.004) / st.zoom
-      st.pitch = Math.max(-1.3, Math.min(1.3, st.pitch))
-      st.lastInteraction = performance.now()
+      st.lastMoveT = now
+      const dyaw = -(dx * 0.006) / st.zoom
+      const dpitch = (dy * 0.004) / st.zoom
+      st.yaw += dyaw
+      st.pitch = Math.max(-1.3, Math.min(1.3, st.pitch + dpitch))
+      // blend instantaneous velocity for release inertia
+      const cap = 3
+      st.vyaw = Math.max(-cap, Math.min(cap, 0.75 * (dyaw / dtm) + 0.25 * st.vyaw))
+      st.vpitch = Math.max(-cap, Math.min(cap, 0.75 * (dpitch / dtm) + 0.25 * st.vpitch))
+      st.lastInteraction = now
     }
     const onPointerUp = () => {
       st.dragging = false
+      // if the pointer paused before release, don't fling
+      if (performance.now() - st.lastMoveT > 90 || reduced) {
+        st.vyaw = 0
+        st.vpitch = 0
+      }
       st.lastInteraction = performance.now()
     }
     const onWheel = (e: WheelEvent) => {
@@ -220,7 +284,7 @@ function DotGlobe({
       canvas.removeEventListener("pointercancel", onPointerUp)
       canvas.removeEventListener("wheel", onWheel)
     }
-  }, [size, markers, autoRotate])
+  }, [size, markers, autoRotate, edgeGlow, dotGlow])
 
   return (
     <div aria-hidden className={cn("relative select-none", className)} {...props}>
