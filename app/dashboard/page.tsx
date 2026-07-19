@@ -13,11 +13,18 @@ import {
   HudAvatarStatus,
 } from "@/registry/hud/hud-avatar"
 import { CrewCard } from "@/registry/hud/crew-card"
+import { HudTimeline, HudTimelineItem } from "@/registry/hud/hud-timeline"
+import { HudHeatmap } from "@/registry/hud/hud-heatmap"
 import { Clock } from "@/components/clock"
 import { UnitPanel } from "@/components/dashboard/unit-panel"
 import { CommandPalette } from "@/components/dashboard/command-palette"
 import { CREW_ROSTER } from "@/app/crew-roster"
-import { FLEET_UNITS, FLEET_EVENTS } from "@/app/dashboard/fleet-data"
+import {
+  FLEET_UNITS,
+  FLEET_EVENTS,
+  ACTIVITY_MATRIX,
+  ACTIVITY_WINGS,
+} from "@/app/dashboard/fleet-data"
 
 const STATIONS: GlobeMarker[] = [
   { code: "D-0203", lat: 28.4, lon: -80.6, status: "incident" },
@@ -319,6 +326,58 @@ export default function Dashboard() {
                 </div>
               </HudAlert>
             ))}
+          </div>
+        </div>
+
+        {/* comms log + activity matrix */}
+        <div className="grid grid-cols-[1fr_440px] gap-3.5">
+          <div className="border border-border bg-[#0F1113]">
+            <PanelTitleRow title="Comms Log" meta="Last 30 min // Live" />
+            <div className="px-4 py-3.5">
+              <HudTimeline>
+                {FLEET_EVENTS.slice(0, 5).map((e, i, arr) => (
+                  <HudTimelineItem
+                    key={e.time}
+                    variant={e.tone}
+                    time={e.time}
+                    title={e.event}
+                    last={i === arr.length - 1}
+                  >
+                    {`${e.unit} // Sector 7`}
+                  </HudTimelineItem>
+                ))}
+              </HudTimeline>
+            </div>
+          </div>
+          <div className="flex flex-col border border-border bg-[#0F1113]">
+            <PanelTitleRow title="Activity Matrix" meta="Wing × Watch" />
+            <div className="flex flex-1 flex-col gap-2 px-4 py-3.5">
+              {/* One heatmap per wing so labels stay row-aligned at any width. */}
+              <div className="flex flex-col gap-[3px]">
+                {ACTIVITY_WINGS.map((w, r) => (
+                  <div key={w} className="flex items-center gap-3">
+                    <span className="w-14 shrink-0 font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
+                      {w}
+                    </span>
+                    <HudHeatmap
+                      className="flex-1"
+                      columns={12}
+                      values={ACTIVITY_MATRIX.slice(r * 12, r * 12 + 12)}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between pl-[68px] font-mono text-[10px] text-[#4A5054]">
+                <span>00</span>
+                <span>06</span>
+                <span>12</span>
+                <span>18</span>
+                <span>24</span>
+              </div>
+              <span className="mt-auto text-right font-mono text-[10px] uppercase tracking-[0.12em] text-[#4A5054]">
+                Low ▢▤▦█ High
+              </span>
+            </div>
           </div>
         </div>
 

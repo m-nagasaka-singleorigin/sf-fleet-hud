@@ -7,6 +7,17 @@ import { TelemetryBar } from "@/registry/hud/telemetry-bar"
 import { HudSparkline } from "@/registry/hud/hud-sparkline"
 import { HudButton } from "@/registry/hud/hud-button"
 import { HudChip } from "@/registry/hud/hud-chip"
+import { HudInput } from "@/registry/hud/hud-input"
+import { HudSlider } from "@/registry/hud/hud-slider"
+import {
+  HudSelect,
+  HudSelectContent,
+  HudSelectGroup,
+  HudSelectItem,
+  HudSelectLabel,
+  HudSelectTrigger,
+  HudSelectValue,
+} from "@/registry/hud/hud-select"
 import { HudTabs, HudTabsList, HudTabsTrigger, HudTabsContent } from "@/registry/hud/hud-tabs"
 import {
   HudTable,
@@ -32,9 +43,10 @@ import {
   HudSheetBody,
   HudSheetFooter,
 } from "@/registry/hud/hud-sheet"
-import type { FleetEvent, FleetUnit } from "@/app/dashboard/fleet-data"
+import { SECTORS, type FleetEvent, type FleetUnit } from "@/app/dashboard/fleet-data"
 
 const PAGE_SIZE = 6
+const PING_MAX = 40
 
 export function UnitPanel({
   units,
@@ -43,12 +55,42 @@ export function UnitPanel({
   units: FleetUnit[]
   events: FleetEvent[]
 }) {
-  const [filters, setFilters] = React.useState(["Sector 7", "Ping < 30ms"])
+  const [query, setQuery] = React.useState("")
+  const [sector, setSector] = React.useState("all")
+  const [ping, setPing] = React.useState(PING_MAX)
   const [page, setPage] = React.useState(1)
   const [selected, setSelected] = React.useState<FleetUnit | null>(null)
 
-  const pageCount = Math.ceil(units.length / PAGE_SIZE)
-  const rows = units.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  // Any filter change restarts paging so results are never hidden on a stale page.
+  const reset = <T,>(set: (v: T) => void) => (v: T) => {
+    set(v)
+    setPage(1)
+  }
+
+  const filtered = React.useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return units.filter((u) => {
+      if (q && !`${u.id} ${u.wing}`.toLowerCase().includes(q)) return false
+      if (sector !== "all" && u.sector !== sector) return false
+      // Dark units have no latency reading, so a ping ceiling excludes them.
+      if (ping < PING_MAX && (u.lost || u.pingMs > ping)) return false
+      return true
+    })
+  }, [units, query, sector, ping])
+
+  const activeFilters = [
+    ...(query.trim() ? [{ key: "q", label: `“${query.trim()}”`, clear: () => setQuery("") }] : []),
+    ...(sector !== "all"
+      ? [{ key: "s", label: sector, clear: () => setSector("all") }]
+      : []),
+    ...(ping < PING_MAX
+      ? [{ key: "p", label: `Ping ≤ ${ping}ms`, clear: () => setPing(PING_MAX) }]
+      : []),
+  ]
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const safePage = Math.min(page, pageCount)
+  const rows = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE)
 
   return (
     <div className="flex min-h-0 flex-col border border-border bg-[#0F1113]">
@@ -64,28 +106,59 @@ export function UnitPanel({
         </div>
 
         <HudTabsContent value="live" className="mt-0 flex min-h-0 flex-1 flex-col">
-          <div className="flex flex-wrap items-center gap-2 border-b border-[#1D2023] px-4 py-2.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4A5054]">
-              Filters:
-            </span>
-            {filters.map((f, i) => (
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-[#1D2023] px-4 py-2.5">
+            <HudInput
+              value={query}
+              onChange={(e) => reset(setQuery)(e.target.value)}
+              placeholder="> SEARCH UNIT / WING…"
+              aria-label="Search units"
+              className="h-8 w-48 py-0"
+            />
+            <HudSelect value={sector} onValueChange={reset(setSector)}>
+              <HudSelectTrigger className="h-8 w-36 py-0" aria-label="Sector">
+                <HudSelectValue />
+              </HudSelectTrigger>
+              <HudSelectContent>
+                <HudSelectGroup>
+                  <HudSelectLabel>Sector</HudSelectLabel>
+                  <HudSelectItem value="all">All sectors</HudSelectItem>
+                  {SECTORS.map((s) => (
+                    <HudSelectItem key={s} value={s}>
+                      {s}
+                    </HudSelectItem>
+                  ))}
+                </HudSelectGroup>
+              </HudSelectContent>
+            </HudSelect>
+            <div className="flex items-center gap-2.5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E7478]">
+                Ping ≤
+              </span>
+              <HudSlider
+                className="w-24"
+                value={[ping]}
+                onValueChange={([v]) => reset(setPing)(v)}
+                min={10}
+                max={PING_MAX}
+                step={1}
+                aria-label="Maximum ping"
+              />
+              <span className="w-12 font-mono text-[10px] tracking-[0.1em] text-primary">
+                {ping === PING_MAX ? "ANY" : `${ping}MS`}
+              </span>
+            </div>
+            {activeFilters.map((f) => (
               <HudChip
-                key={f}
-                variant={i === 0 ? "active" : "default"}
-                onRemove={() => setFilters((s) => s.filter((x) => x !== f))}
+                key={f.key}
+                variant="active"
+                onRemove={() => {
+                  f.clear()
+                  setPage(1)
+                }}
               >
-                {f}
+                {f.label}
               </HudChip>
             ))}
-            {filters.length === 0 && (
-              <button
-                type="button"
-                onClick={() => setFilters(["Sector 7", "Ping < 30ms"])}
-                className="cursor-pointer border-b border-dashed border-[#4A5054] font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065] transition-colors hover:text-primary"
-              >
-                + Add filter
-              </button>
-            )}
           </div>
 
           <div className="min-h-0 flex-1 overflow-y-auto">
@@ -100,6 +173,16 @@ export function UnitPanel({
                 </HudTableRow>
               </HudTableHeader>
               <HudTableBody>
+                {rows.length === 0 && (
+                  <HudTableRow className="hover:bg-transparent">
+                    <HudTableCell
+                      colSpan={5}
+                      className="py-8 text-center uppercase tracking-[0.14em] text-[#4A5054]"
+                    >
+                      No units match the current filters
+                    </HudTableCell>
+                  </HudTableRow>
+                )}
                 {rows.map((u) => (
                   <HudTableRow
                     key={u.id}
@@ -138,25 +221,28 @@ export function UnitPanel({
 
           <div className="flex items-center justify-between gap-3 border-t border-[#1D2023] px-4 py-2.5">
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#4A5054]">
-              {units.length} units tracked — click a row for detail
+              {filtered.length === units.length
+                ? `${units.length} units tracked`
+                : `${filtered.length} of ${units.length} units`}{" "}
+              — click a row for detail
             </span>
             <HudPagination>
               <HudPaginationPrevious
-                disabled={page === 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={safePage === 1}
+                onClick={() => setPage(Math.max(1, safePage - 1))}
               />
               {Array.from({ length: pageCount }, (_, i) => (
                 <HudPaginationItem
                   key={i}
-                  active={page === i + 1}
+                  active={safePage === i + 1}
                   onClick={() => setPage(i + 1)}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </HudPaginationItem>
               ))}
               <HudPaginationNext
-                disabled={page === pageCount}
-                onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                disabled={safePage === pageCount}
+                onClick={() => setPage(Math.min(pageCount, safePage + 1))}
               />
             </HudPagination>
           </div>

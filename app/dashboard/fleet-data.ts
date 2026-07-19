@@ -5,9 +5,12 @@ export type FleetStatus = "engaged" | "patrol" | "standby" | "critical"
 export type FleetUnit = {
   id: string
   wing: string
+  sector: string
   status: FleetStatus
   label: string
   signal: number
+  /** Numeric latency used by the filter bar; 0 when the unit is dark. */
+  pingMs: number
   ping: string
   lost: boolean
   commander: string
@@ -17,6 +20,8 @@ export type FleetUnit = {
   ordnance: number
   vitals: number[]
 }
+
+export const SECTORS = ["Sector 7", "Sector 4", "Sector 1"] as const
 
 type UnitSeed = [id: string, wing: string, status: FleetStatus, signal: number, ping: number]
 
@@ -69,9 +74,11 @@ function vitalsFor(seed: number, signal: number) {
 export const FLEET_UNITS: FleetUnit[] = SEEDS.map(([id, wing, status, signal, ping], i) => ({
   id,
   wing,
+  sector: SECTORS[i % SECTORS.length],
   status,
   label: STATUS_LABEL[status],
   signal,
+  pingMs: ping,
   ping: status === "critical" ? "——" : `${ping}MS`,
   lost: status === "critical",
   commander: COMMANDERS[i % COMMANDERS.length],
@@ -99,3 +106,24 @@ export const FLEET_EVENTS: FleetEvent[] = [
   { time: "13:38:20", unit: "D-0362", event: "Threat index elevated 0.21 → 0.34", tone: "accent" },
   { time: "13:31:55", unit: "D-0288", event: "Standby watch assumed", tone: "muted" },
 ]
+
+// Wing × watch activity, 12 watch slots per wing row. Values are 0–1.
+export const ACTIVITY_WINGS = [
+  "Nova",
+  "Kestrel",
+  "Vanta",
+  "Aurora",
+  "Phoenix",
+  "Halcyon",
+] as const
+
+export const ACTIVITY_MATRIX: number[] = Array.from(
+  { length: ACTIVITY_WINGS.length * 12 },
+  (_, i) => {
+    const row = Math.floor(i / 12)
+    const col = i % 12
+    const wave = Math.sin(col * 0.62 + row * 1.4) * 0.42 + 0.45
+    const grain = Math.cos(col * 2.3 + row * 0.7) * 0.12
+    return Math.max(0, Math.min(1, Number((wave + grain).toFixed(2))))
+  }
+)
