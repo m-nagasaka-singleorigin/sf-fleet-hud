@@ -66,7 +66,7 @@ function DotGlobe({
 }) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const stateRef = React.useRef({
-    yaw: ((initialLon + 90) * Math.PI) / 180,
+    yaw: ((initialLon - 90) * Math.PI) / 180,
     pitch: (initialLat * Math.PI) / 180,
     zoom: 1,
     dragging: false,
@@ -102,7 +102,8 @@ function DotGlobe({
       const z1 = -x * sy1 + z * cy1
       const y2 = y * cp - z1 * sp
       const z2 = y * sp + z1 * cp
-      return [cx + x1 * R, cy - y2 * R, z2] as const
+      // Mirror x so that east runs to the viewer's right (outside view).
+      return [cx - x1 * R, cy - y2 * R, z2] as const
     }
 
     const draw = (now: number) => {
