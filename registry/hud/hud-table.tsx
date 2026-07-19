@@ -42,7 +42,7 @@ function HudTableHead({ className, sorted, children, ...props }: React.Component
     >
       <span className="inline-flex items-center gap-1.5">
         {children}
-        {sorted && <span className="text-[8px]">{sorted === "asc" ? "▲" : "▼"}</span>}
+        {sorted && <span className="text-[10px]">{sorted === "asc" ? "▲" : "▼"}</span>}
       </span>
     </th>
   )

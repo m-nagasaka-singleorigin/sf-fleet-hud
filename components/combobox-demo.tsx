@@ -63,9 +63,9 @@ export function ComboboxDemo() {
               >
                 <span className={cn(o.value === value && "text-primary")}>{o.label}</span>
                 <span className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] text-[#4A5054]">{o.wing}</span>
+                  <span className="font-mono text-[10px] text-[#4A5054]">{o.wing}</span>
                   {o.value === value && (
-                    <span className="font-mono text-[9px] text-primary">◆</span>
+                    <span className="font-mono text-[10px] text-primary">◆</span>
                   )}
                 </span>
               </HudCommandItem>

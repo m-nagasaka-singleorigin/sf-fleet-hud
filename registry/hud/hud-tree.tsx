@@ -24,7 +24,7 @@ function HudTreeBranch({
       >
         <span
           aria-hidden
-          className={cn("text-[8px]", open ? "text-primary" : "text-[#5A6065]")}
+          className={cn("text-[10px]", open ? "text-primary" : "text-[#5A6065]")}
         >
           {open ? "▾" : "▸"}
         </span>
@@ -59,7 +59,7 @@ function HudTreeLeaf({
       )}
       {...props}
     >
-      <span aria-hidden className="text-[8px] text-[#4A5054]">
+      <span aria-hidden className="text-[10px] text-[#4A5054]">
         {selected ? "◆" : "◇"}
       </span>
       <span

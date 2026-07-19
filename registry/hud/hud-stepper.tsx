@@ -34,7 +34,7 @@ function HudStep({
       </span>
       <span
         className={cn(
-          "font-mono text-[8px] uppercase tracking-[0.12em]",
+          "font-mono text-[10px] uppercase tracking-[0.12em]",
           state === "active" ? "text-primary" : state === "done" ? "text-[#8A9094]" : "text-[#4A5054]"
         )}
       >

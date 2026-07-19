@@ -210,7 +210,7 @@ export default function Home() {
             <div className="flex items-center gap-5">
               <HudGauge value={68} label="Thrust" size={92} />
               <div className="flex-1">
-                <div className="font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+                <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]">
                   Throughput
                 </div>
                 <div className="mt-1.5 flex items-end justify-between gap-2.5">
@@ -775,7 +775,7 @@ export default function Home() {
           <div className="flex w-full flex-wrap items-start gap-8">
             <HudGauge value={68} label="Thrust" />
             <div className="border border-border bg-[#0F1113] px-3.5 py-3">
-              <div className="font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]">
                 Throughput
               </div>
               <div className="mt-1.5 flex items-end justify-between gap-2.5">
@@ -786,7 +786,7 @@ export default function Home() {
               </div>
             </div>
             <div className="min-w-[220px] flex-1 border border-border bg-[#0F1113] px-3.5 py-3">
-              <div className="flex justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-[#5A6065]">
+              <div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]">
                 <span>Activity Matrix</span>
                 <span className="text-[#4A5054]">LOW ▢▤▦█ HIGH</span>
               </div>
@@ -850,7 +850,7 @@ export default function Home() {
                 <div className="mt-1.5 h-[3px] bg-[#1D2023]">
                   <div className="h-full w-[64%] bg-primary" />
                 </div>
-                <div className="mt-1 flex justify-between font-mono text-[8px] text-[#4A5054]">
+                <div className="mt-1 flex justify-between font-mono text-[10px] text-[#4A5054]">
                   <span>12.4 / 19.2 MB</span>
                   <span className="cursor-pointer text-[#5A6065] hover:text-destructive">
                     CANCEL
@@ -909,7 +909,7 @@ export default function Home() {
                 )}
               >
                 {el}
-                <span className="text-right font-mono text-[8px] tracking-[0.12em] text-[#4A5054]">
+                <span className="text-right font-mono text-[10px] tracking-[0.12em] text-[#4A5054]">
                   {spec}
                 </span>
               </div>

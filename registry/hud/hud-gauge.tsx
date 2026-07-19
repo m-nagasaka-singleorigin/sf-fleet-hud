@@ -37,7 +37,7 @@ function HudGauge({
             {Math.round(pct)}
           </div>
           {label && (
-            <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.14em] text-[#5A6065]">
+            <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[#5A6065]">
               {label}
             </div>
           )}

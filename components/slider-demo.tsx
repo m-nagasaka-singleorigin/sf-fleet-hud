@@ -22,7 +22,7 @@ export function SliderDemo() {
           step={0.1}
           className="mt-2"
         />
-        <div className="mt-1 flex justify-between font-mono text-[8px] text-[#4A5054]">
+        <div className="mt-1 flex justify-between font-mono text-[10px] text-[#4A5054]">
           <span>1S</span>
           <span>5S</span>
           <span>10S</span>
@@ -36,7 +36,7 @@ export function SliderDemo() {
           </span>
         </div>
         <HudSlider value={ping} onValueChange={setPing} min={0} max={100} className="mt-2" />
-        <div className="mt-1 flex justify-between font-mono text-[8px] text-[#4A5054]">
+        <div className="mt-1 flex justify-between font-mono text-[10px] text-[#4A5054]">
           <span>0MS</span>
           <span>50MS</span>
           <span>100MS</span>

@@ -27,7 +27,7 @@ function HudCalendar({
           "cursor-pointer font-mono text-[10px] text-[#5A6065] transition-colors outline-none hover:text-primary",
         month_grid: "w-full border-collapse",
         weekdays: "flex gap-0.5",
-        weekday: "w-8 pb-1 text-center font-mono text-[8px] uppercase text-[#4A5054]",
+        weekday: "w-8 pb-1 text-center font-mono text-[10px] uppercase text-[#4A5054]",
         week: "mt-0.5 flex gap-0.5",
         day: "p-0 text-center font-mono text-[10px] text-[#8A9094]",
         day_button:

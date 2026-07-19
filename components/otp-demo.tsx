@@ -25,7 +25,7 @@ export function OtpDemo() {
           <HudInputOTPSlot index={5} />
         </HudInputOTPGroup>
       </HudInputOTP>
-      <span className="ml-2 font-mono text-[8px] uppercase tracking-[0.12em] text-[#4A5054]">
+      <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#4A5054]">
         Expires 00:47
       </span>
     </div>

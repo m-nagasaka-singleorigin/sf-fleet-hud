@@ -37,7 +37,7 @@ function HudAccordionTrigger({ className, children, ...props }: React.ComponentP
         {children}
         <span
           aria-hidden
-          className="font-mono text-[9px] text-[#5A6065] transition-transform group-data-[state=open]:rotate-90 group-data-[state=open]:text-primary"
+          className="font-mono text-[10px] text-[#5A6065] transition-transform group-data-[state=open]:rotate-90 group-data-[state=open]:text-primary"
         >
           ▸
         </span>

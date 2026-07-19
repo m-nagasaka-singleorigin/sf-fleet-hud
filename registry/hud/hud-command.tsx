@@ -53,7 +53,7 @@ function HudCommandInput({ className, ...props }: React.ComponentProps<typeof Co
         )}
         {...props}
       />
-      <span className="border border-border px-1.5 py-0.5 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]">
+      <span className="border border-border px-1.5 py-0.5 font-mono text-[10px] tracking-[0.1em] text-[#4A5054]">
         ESC
       </span>
     </div>
@@ -85,7 +85,7 @@ function HudCommandGroup({ className, ...props }: React.ComponentProps<typeof Co
   return (
     <CommandPrimitive.Group
       className={cn(
-        "[&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[8px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-[#4A5054]",
+        "[&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-[#4A5054]",
         className
       )}
       {...props}
@@ -108,7 +108,7 @@ function HudCommandItem({ className, ...props }: React.ComponentProps<typeof Com
 }
 
 function HudCommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
-  return <span className={cn("font-mono text-[8px] text-[#4A5054]", className)} {...props} />
+  return <span className={cn("font-mono text-[10px] text-[#4A5054]", className)} {...props} />
 }
 
 function HudCommandSeparator({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Separator>) {
@@ -121,7 +121,7 @@ function HudCommandFooter({ className, children, ...props }: React.ComponentProp
   return (
     <div
       className={cn(
-        "flex gap-4 border-t border-[#1D2023] px-4 py-2 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]",
+        "flex gap-4 border-t border-[#1D2023] px-4 py-2 font-mono text-[10px] tracking-[0.1em] text-[#4A5054]",
         className
       )}
       {...props}

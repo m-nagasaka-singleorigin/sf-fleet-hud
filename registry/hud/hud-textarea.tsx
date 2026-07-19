@@ -40,7 +40,7 @@ function HudTextarea({
       {textarea}
       <span
         aria-hidden
-        className="pointer-events-none absolute right-2.5 bottom-2.5 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]"
+        className="pointer-events-none absolute right-2.5 bottom-2.5 font-mono text-[10px] tracking-[0.1em] text-[#4A5054]"
       >
         {props.maxLength != null ? `${count} / ${props.maxLength}` : count}
       </span>

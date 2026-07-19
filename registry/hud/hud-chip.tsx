@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const hudChipVariants = cva(
-  "inline-flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 border",
+  "inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.1em] px-2 py-0.5 border",
   {
     variants: {
       variant: {

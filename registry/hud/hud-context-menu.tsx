@@ -55,7 +55,7 @@ function HudContextMenuSubTrigger({ className, children, ...props }: React.Compo
       {...props}
     >
       {children}
-      <span className="font-mono text-[8px] text-[#4A5054]">▸</span>
+      <span className="font-mono text-[10px] text-[#4A5054]">▸</span>
     </ContextMenuPrimitive.SubTrigger>
   )
 }
@@ -78,7 +78,7 @@ function HudContextMenuLabel({ className, ...props }: React.ComponentProps<typeo
   return (
     <ContextMenuPrimitive.Label
       className={cn(
-        "px-3 pt-2 pb-1 font-mono text-[8px] uppercase tracking-[0.2em] text-[#4A5054]",
+        "px-3 pt-2 pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]",
         className
       )}
       {...props}
@@ -94,7 +94,7 @@ function HudContextMenuSeparator({ className, ...props }: React.ComponentProps<t
 
 function HudContextMenuShortcut({ className, ...props }: React.ComponentProps<"span">) {
   return (
-    <span className={cn("font-mono text-[8px] normal-case text-[#4A5054]", className)} {...props} />
+    <span className={cn("font-mono text-[10px] normal-case text-[#4A5054]", className)} {...props} />
   )
 }
 

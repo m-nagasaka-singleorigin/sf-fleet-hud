@@ -33,7 +33,7 @@ function HudTooltipContent({
       <TooltipPrimitive.Content
         sideOffset={sideOffset}
         className={cn(
-          "z-50 border border-[#3A3E42] bg-popover px-3 py-[7px] font-mono text-[9px] tracking-[0.12em] text-[#C8CCCE] shadow-[0_8px_16px_rgba(0,0,0,0.5)]",
+          "z-50 border border-[#3A3E42] bg-popover px-3 py-[7px] font-mono text-[10px] tracking-[0.12em] text-[#C8CCCE] shadow-[0_8px_16px_rgba(0,0,0,0.5)]",
           className
         )}
         {...props}

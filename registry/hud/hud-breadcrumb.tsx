@@ -41,7 +41,7 @@ function HudBreadcrumbPage({ className, ...props }: React.ComponentProps<"span">
 
 function HudBreadcrumbSeparator({ className, children, ...props }: React.ComponentProps<"li">) {
   return (
-    <li role="presentation" aria-hidden className={cn("font-mono text-[8px] text-[#4A5054]", className)} {...props}>
+    <li role="presentation" aria-hidden className={cn("font-mono text-[10px] text-[#4A5054]", className)} {...props}>
       {children ?? "▸"}
     </li>
   )

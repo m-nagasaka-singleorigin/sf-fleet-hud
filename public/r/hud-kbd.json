@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "registry/hud/hud-kbd.tsx",
-      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudKbd({ className, ...props }: React.ComponentProps<\"kbd\">) {\n  return (\n    <kbd\n      className={cn(\n        \"inline-block border border-[#3A3E42] border-b-2 bg-[#101214] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-[#C8CCCE]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudKbd }\n",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudKbd({ className, ...props }: React.ComponentProps<\"kbd\">) {\n  return (\n    <kbd\n      className={cn(\n        \"inline-block border border-[#3A3E42] border-b-2 bg-[#101214] px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#C8CCCE]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudKbd }\n",
       "type": "registry:ui"
     }
   ]
