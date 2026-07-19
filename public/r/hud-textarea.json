@@ -3,14 +3,14 @@
   "name": "hud-textarea",
   "type": "registry:ui",
   "title": "HUD Textarea",
-  "description": "Terminal-style textarea with room for a counter overlay.",
+  "description": "Terminal-style textarea with optional live character counter (showCount + maxLength).",
   "registryDependencies": [
     "utils"
   ],
   "files": [
     {
       "path": "registry/hud/hud-textarea.tsx",
-      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudTextarea({ className, ...props }: React.ComponentProps<\"textarea\">) {\n  return (\n    <textarea\n      className={cn(\n        \"w-full resize-y bg-[#0F1113] px-3 pt-2.5 pb-6 font-mono text-[11px] leading-[1.6] tracking-[0.06em] text-[#C8CCCE]\",\n        \"border border-input outline-none transition-colors placeholder:text-[#4A5054]\",\n        \"focus:border-primary disabled:cursor-not-allowed disabled:opacity-50\",\n        \"aria-invalid:border-destructive\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudTextarea }\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudTextarea({\n  className,\n  showCount = false,\n  onChange,\n  ...props\n}: React.ComponentProps<\"textarea\"> & { showCount?: boolean }) {\n  const isControlled = props.value !== undefined\n  const [uncontrolledCount, setUncontrolledCount] = React.useState(\n    () => String(props.defaultValue ?? \"\").length\n  )\n  const count = isControlled ? String(props.value).length : uncontrolledCount\n\n  const textarea = (\n    <textarea\n      className={cn(\n        \"w-full resize-y bg-[#0F1113] px-3 pt-2.5 font-mono text-[11px] leading-[1.6] tracking-[0.06em] text-[#C8CCCE]\",\n        showCount ? \"pb-6\" : \"pb-2.5\",\n        \"border border-input outline-none transition-colors placeholder:text-[#4A5054]\",\n        \"focus:border-primary disabled:cursor-not-allowed disabled:opacity-50\",\n        \"aria-invalid:border-destructive\",\n        className\n      )}\n      onChange={(e) => {\n        if (!isControlled) setUncontrolledCount(e.target.value.length)\n        onChange?.(e)\n      }}\n      {...props}\n    />\n  )\n\n  if (!showCount) return textarea\n\n  return (\n    <div className=\"relative w-full\">\n      {textarea}\n      <span\n        aria-hidden\n        className=\"pointer-events-none absolute right-2.5 bottom-2.5 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]\"\n      >\n        {props.maxLength != null ? `${count} / ${props.maxLength}` : count}\n      </span>\n    </div>\n  )\n}\n\nexport { HudTextarea }\n",
       "type": "registry:ui"
     }
   ]

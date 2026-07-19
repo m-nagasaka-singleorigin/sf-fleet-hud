@@ -336,17 +336,15 @@ export default function Home() {
         </Section>
 
         <Section index="11" title="Textarea" name="hud-textarea">
-          <div className="relative w-full max-w-lg">
+          <div className="flex w-full max-w-lg flex-col gap-1.5">
             <HudLabel htmlFor="brief">Mission Brief</HudLabel>
             <HudTextarea
               id="brief"
               rows={4}
-              className="mt-1.5"
+              showCount
+              maxLength={240}
               defaultValue="Wing 09 advances to grid D2 under emission control. Weapons free on flagged contacts only."
             />
-            <span className="absolute right-2.5 bottom-2.5 font-mono text-[8px] tracking-[0.1em] text-[#4A5054]">
-              88 / 240
-            </span>
           </div>
         </Section>
 

@@ -215,7 +215,7 @@
       "name": "hud-textarea",
       "type": "registry:ui",
       "title": "HUD Textarea",
-      "description": "Terminal-style textarea with room for a counter overlay.",
+      "description": "Terminal-style textarea with optional live character counter (showCount + maxLength).",
       "registryDependencies": [
         "utils"
       ],
