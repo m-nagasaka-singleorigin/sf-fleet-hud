@@ -43,7 +43,7 @@
     {
       "name": "theme-hud-cyan",
       "type": "registry:theme",
-      "title": "HUD Theme \u2014 Cyan Accent",
+      "title": "HUD Theme — Cyan Accent",
       "description": "Cyan accent override for the HUD theme. Install after theme-hud; warnings and destructive tones stay warm.",
       "cssVars": {
         "dark": {
@@ -655,7 +655,7 @@
       "name": "hud-heatmap",
       "type": "registry:ui",
       "title": "HUD Heatmap",
-      "description": "Accent-tinted intensity matrix (values 0\u20131).",
+      "description": "Accent-tinted intensity matrix (values 0–1).",
       "registryDependencies": [
         "utils"
       ],
@@ -758,6 +758,29 @@
           "path": "registry/hud/dot-globe-data.ts",
           "type": "registry:ui"
         }
+      ]
+    },
+    {
+      "name": "crew-card",
+      "type": "registry:ui",
+      "title": "Crew Card",
+      "description": "Personnel card: portrait, name/callsign, rank ticks, assignment, status and vitals/duty telemetry. Portrait is supplied via the photo prop — no images ship with this item.",
+      "registryDependencies": [
+        "utils",
+        "https://sf-fleet-hud.vercel.app/r/hud-avatar.json",
+        "https://sf-fleet-hud.vercel.app/r/status-badge.json",
+        "https://sf-fleet-hud.vercel.app/r/telemetry-bar.json",
+        "https://sf-fleet-hud.vercel.app/r/hud-sparkline.json"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/crew-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
       ]
     }
   ]

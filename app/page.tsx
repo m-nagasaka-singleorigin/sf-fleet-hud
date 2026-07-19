@@ -11,6 +11,8 @@ import {
   HudPanelFooter,
 } from "@/registry/hud/hud-panel"
 import { StatusBadge } from "@/registry/hud/status-badge"
+import { CrewCard } from "@/registry/hud/crew-card"
+import { CREW_ROSTER } from "@/app/crew-roster"
 import { TelemetryBar } from "@/registry/hud/telemetry-bar"
 import { SegmentBar } from "@/registry/hud/segment-bar"
 import { HudKbd } from "@/registry/hud/hud-kbd"
@@ -1015,6 +1017,29 @@ export default function Home() {
                 </span>
               </div>
             ))}
+          </div>
+        </Section>
+
+        <Section index="33" title="Crew Card" name="crew-card">
+          <div className="flex w-full flex-col gap-4">
+            <div className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Hand-picked so every status treatment is on screen. */}
+              {[0, 1, 2, 3, 6, 20].map((i) => (
+                <CrewCard key={CREW_ROSTER[i].id} crew={CREW_ROSTER[i]} />
+              ))}
+            </div>
+            <div className="flex flex-wrap items-start gap-3">
+              <CrewCard className="w-[300px]" crew={CREW_ROSTER[8]} showTelemetry={false} />
+              <CrewCard
+                className="w-[300px]"
+                crew={{ ...CREW_ROSTER[17], photo: undefined }}
+                showTelemetry={false}
+              />
+            </div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4A5054]">
+              Portraits are demo assets — pass your own via the photo prop. Omit it
+              and the card falls back to initials.
+            </p>
           </div>
         </Section>
       </main>
