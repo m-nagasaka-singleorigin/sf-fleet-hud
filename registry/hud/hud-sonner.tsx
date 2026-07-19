@@ -23,7 +23,7 @@ function HudToaster(props: ToasterProps) {
           content: "flex-1",
           title:
             "font-sans text-sm font-semibold uppercase tracking-[0.08em] text-foreground group-data-[type=success]:font-medium group-data-[type=success]:text-[#C8CCCE]",
-          description: "mt-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-[#6E7478]",
+          description: "mt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#6E7478]",
           actionButton:
             "ml-2 cursor-pointer font-sans text-xs font-medium uppercase tracking-[0.1em] text-primary",
           cancelButton:

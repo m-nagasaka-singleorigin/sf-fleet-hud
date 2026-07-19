@@ -34,7 +34,7 @@ function HudTableHead({ className, sorted, children, ...props }: React.Component
   return (
     <th
       className={cn(
-        "px-3.5 py-[9px] text-left align-middle font-mono text-[9px] font-normal uppercase tracking-[0.16em]",
+        "px-3.5 py-[9px] text-left align-middle font-mono text-[10px] font-normal uppercase tracking-[0.16em]",
         sorted ? "text-primary" : "text-[#4A5054] [&:has([role=button],button)]:cursor-pointer hover:text-[#C8CCCE]",
         className
       )}
@@ -60,7 +60,7 @@ function HudTableCell({ className, ...props }: React.ComponentProps<"td">) {
 function HudTableCaption({ className, ...props }: React.ComponentProps<"caption">) {
   return (
     <caption
-      className={cn("mt-2 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]", className)}
+      className={cn("mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]", className)}
       {...props}
     />
   )

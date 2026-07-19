@@ -8,7 +8,7 @@ function HudLabel({ className, ...props }: React.ComponentProps<typeof LabelPrim
   return (
     <LabelPrimitive.Root
       className={cn(
-        "font-mono text-[9px] uppercase tracking-[0.16em] text-[#6E7478] peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        "font-mono text-[10px] uppercase tracking-[0.16em] text-[#6E7478] peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className
       )}
       {...props}

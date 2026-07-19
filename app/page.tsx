@@ -481,7 +481,7 @@ export default function Home() {
                 </HudDialogDescription>
                 <div className="mt-3 flex items-center gap-2 border border-primary/45 px-2.5 py-2">
                   <span className="font-mono text-[10px] text-primary">◆</span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#9AA0A4]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#9AA0A4]">
                     Auth code required — clearance A-1
                   </span>
                 </div>
@@ -520,7 +520,7 @@ export default function Home() {
                   ] as const
                 ).map(([k, v]) => (
                   <div key={k} className="flex justify-between">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5A6065]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#5A6065]">
                       {k}
                     </span>
                     <span className="font-mono text-[10px] uppercase text-[#C8CCCE]">
@@ -559,7 +559,7 @@ export default function Home() {
         <Section index="20" title="Context Menu" name="hud-context-menu">
           <HudContextMenu>
             <HudContextMenuTrigger asChild>
-              <div className="grid h-28 w-full max-w-sm place-items-center border border-dashed border-[#2E3236] font-mono text-[9px] uppercase tracking-[0.14em] text-[#4A5054]">
+              <div className="grid h-28 w-full max-w-sm place-items-center border border-dashed border-[#2E3236] font-mono text-[10px] uppercase tracking-[0.14em] text-[#4A5054]">
                 Right-click this zone
               </div>
             </HudContextMenuTrigger>
@@ -609,7 +609,7 @@ export default function Home() {
         <Section index="22" title="Table + Filter + Pagination" name="hud-table">
           <div className="flex w-full flex-col gap-3">
             <div className="flex flex-wrap items-center gap-2.5">
-              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#4A5054]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4A5054]">
                 Filters:
               </span>
               <HudChip variant="active" onRemove={undefined}>
@@ -661,7 +661,7 @@ export default function Home() {
               </HudTableBody>
             </HudTable>
             <div className="flex items-center gap-1.5">
-              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
                 2 selected / 214 rows
               </span>
               <span className="flex-1" />
@@ -690,7 +690,7 @@ export default function Home() {
                   ] as const
                 ).map(([k, v]) => (
                   <div key={k} className="flex justify-between">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
                       {k}
                     </span>
                     <span className="font-mono text-[10px] text-[#C8CCCE]">{v}</span>
@@ -845,7 +845,7 @@ export default function Home() {
                   <span className="font-mono text-[10px] tracking-[0.08em] text-[#C8CCCE]">
                     sortie_log_0713.tlm
                   </span>
-                  <span className="font-mono text-[9px] text-primary">64%</span>
+                  <span className="font-mono text-[10px] text-primary">64%</span>
                 </div>
                 <div className="mt-1.5 h-[3px] bg-[#1D2023]">
                   <div className="h-full w-[64%] bg-primary" />

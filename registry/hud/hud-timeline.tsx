@@ -35,7 +35,7 @@ function HudTimelineItem({
       </div>
       <div className={cn(!last && "pb-4")}>
         <div className="flex items-baseline gap-2.5">
-          {time && <span className="font-mono text-[9px] text-[#5A6065]">{time}</span>}
+          {time && <span className="font-mono text-[10px] text-[#5A6065]">{time}</span>}
           <span
             className={cn(
               "font-sans text-[15px] tracking-[0.08em] uppercase",
@@ -48,7 +48,7 @@ function HudTimelineItem({
           </span>
         </div>
         {children && (
-          <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.08em] text-[#6E7478]">
+          <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[#6E7478]">
             {children}
           </div>
         )}

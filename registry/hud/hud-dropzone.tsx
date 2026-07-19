@@ -53,7 +53,7 @@ function HudDropzone({
         {title}
       </div>
       {hint && (
-        <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5A6065]">
+        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
           {hint}
         </div>
       )}

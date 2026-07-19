@@ -20,7 +20,7 @@ export function EffectsToggles() {
 
   return (
     <div className="flex flex-wrap items-center gap-5">
-      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#4A5054]">
+      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">
         FX:
       </span>
       {EFFECTS.map(({ key, label }) => (
@@ -29,7 +29,7 @@ export function EffectsToggles() {
             checked={!!on[key]}
             onCheckedChange={(v) => setOn((s) => ({ ...s, [key]: v }))}
           />
-          <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#6E7478]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#6E7478]">
             {label}
           </span>
         </label>

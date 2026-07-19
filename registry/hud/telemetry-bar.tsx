@@ -5,7 +5,7 @@ function TelemetryBar({ className, label, value, max = 100, unit = "%", warn = f
   const pct = Math.max(0, Math.min(100, (value / max) * 100))
   return (
     <div className={cn("w-full", className)} {...props}>
-      <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
+      <div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E7478]">
         <span>{label}</span>
         <span className={warn ? "text-primary" : "text-[#C8CCCE]"}>{value}{unit}</span>
       </div>

@@ -97,7 +97,7 @@ function HudSheetCloseButton({ className, ...props }: React.ComponentProps<typeo
 function HudSheetDescription({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Description>) {
   return (
     <SheetPrimitive.Description
-      className={cn("font-mono text-[9px] tracking-[0.14em] text-[#5A6065]", className)}
+      className={cn("font-mono text-[10px] tracking-[0.14em] text-[#5A6065]", className)}
       {...props}
     />
   )

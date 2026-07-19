@@ -24,7 +24,7 @@ function HudPanelTitle({ className, ...props }: React.ComponentProps<"h4">) {
 }
 
 function HudPanelMeta({ className, ...props }: React.ComponentProps<"span">) {
-  return <span className={cn("font-mono text-[9px] uppercase tracking-[0.16em] text-[#5A6065]", className)} {...props} />
+  return <span className={cn("font-mono text-[10px] uppercase tracking-[0.16em] text-[#5A6065]", className)} {...props} />
 }
 
 function HudPanelContent({ className, ...props }: React.ComponentProps<"div">) {

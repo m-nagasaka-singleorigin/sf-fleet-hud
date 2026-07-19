@@ -10,7 +10,7 @@ export function SliderDemo() {
   return (
     <div className="flex w-full max-w-sm flex-col gap-8">
       <div>
-        <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
+        <div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E7478]">
           <span>Scan Interval</span>
           <span className="text-primary">{interval[0].toFixed(1)}S</span>
         </div>
@@ -29,7 +29,7 @@ export function SliderDemo() {
         </div>
       </div>
       <div>
-        <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
+        <div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E7478]">
           <span>Ping Threshold (Range)</span>
           <span className="text-primary">
             {String(ping[0]).padStart(2, "0")} — {String(ping[1]).padStart(2, "0")}MS
