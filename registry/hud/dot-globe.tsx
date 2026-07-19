@@ -97,12 +97,23 @@ function DotGlobe({
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    // Resolve theme accents so the globe follows accent-color overrides.
-    const styles = getComputedStyle(canvas)
-    const [ar, ag, ab] = hexToRgb(styles.getPropertyValue("--primary"), [255, 122, 41])
-    const [ir, ig, ib] = hexToRgb(styles.getPropertyValue("--destructive"), [229, 72, 77])
-    const accent = `rgb(${ar},${ag},${ab})`
-    const incidentColor = `rgb(${ir},${ig},${ib})`
+    // Resolve theme accents so the globe follows accent-color overrides,
+    // re-resolving when the theme changes at runtime (e.g. data-accent toggle).
+    let ar = 255, ag = 122, ab = 41, ir = 229, ig = 72, ib = 77
+    let accent = "", incidentColor = ""
+    const resolveColors = () => {
+      const styles = getComputedStyle(canvas)
+      ;[ar, ag, ab] = hexToRgb(styles.getPropertyValue("--primary"), [255, 122, 41])
+      ;[ir, ig, ib] = hexToRgb(styles.getPropertyValue("--destructive"), [229, 72, 77])
+      accent = `rgb(${ar},${ag},${ab})`
+      incidentColor = `rgb(${ir},${ig},${ib})`
+    }
+    resolveColors()
+    const observer = new MutationObserver(resolveColors)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-accent", "class", "style"],
+    })
     canvas.width = size * dpr
     canvas.height = size * dpr
 
@@ -289,6 +300,7 @@ function DotGlobe({
 
     return () => {
       cancelAnimationFrame(raf)
+      observer.disconnect()
       canvas.removeEventListener("pointerdown", onPointerDown)
       canvas.removeEventListener("pointermove", onPointerMove)
       canvas.removeEventListener("pointerup", onPointerUp)
