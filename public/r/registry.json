@@ -735,6 +735,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "dot-globe",
+      "type": "registry:ui",
+      "title": "Dot Globe",
+      "description": "Interactive dotted earth globe (canvas): drag to rotate, wheel to zoom, markers with incident state. Land dots derived from Natural Earth (public domain).",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/dot-globe.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/hud/dot-globe-data.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -139,6 +139,31 @@ import { HudTimeline, HudTimelineItem } from "@/registry/hud/hud-timeline"
 import { HudTree, HudTreeBranch, HudTreeLeaf } from "@/registry/hud/hud-tree"
 import { HudDropzone } from "@/registry/hud/hud-dropzone"
 import { HudStepper, HudStep, HudStepSeparator } from "@/registry/hud/hud-stepper"
+import { DotGlobe, type GlobeMarker } from "@/registry/hud/dot-globe"
+
+const AWS_REGIONS: GlobeMarker[] = [
+  { code: "us-east-1", lat: 38.9, lon: -77.4, status: "incident" },
+  { code: "us-east-2", lat: 40.0, lon: -83.0 },
+  { code: "us-west-1", lat: 37.4, lon: -121.9 },
+  { code: "us-west-2", lat: 45.8, lon: -119.7 },
+  { code: "ca-central-1", lat: 45.5, lon: -73.6 },
+  { code: "sa-east-1", lat: -23.5, lon: -46.6 },
+  { code: "eu-west-1", lat: 53.3, lon: -6.3 },
+  { code: "eu-west-2", lat: 51.5, lon: -0.1 },
+  { code: "eu-west-3", lat: 48.9, lon: 2.4 },
+  { code: "eu-central-1", lat: 50.1, lon: 8.7 },
+  { code: "eu-north-1", lat: 59.3, lon: 18.1 },
+  { code: "eu-south-1", lat: 45.5, lon: 9.2 },
+  { code: "af-south-1", lat: -33.9, lon: 18.4 },
+  { code: "me-south-1", lat: 26.2, lon: 50.6 },
+  { code: "ap-south-1", lat: 19.1, lon: 72.9 },
+  { code: "ap-southeast-1", lat: 1.35, lon: 103.8 },
+  { code: "ap-southeast-2", lat: -33.9, lon: 151.2 },
+  { code: "ap-east-1", lat: 22.3, lon: 114.2 },
+  { code: "ap-northeast-1", lat: 35.7, lon: 139.7 },
+  { code: "ap-northeast-2", lat: 37.6, lon: 127.0 },
+  { code: "ap-northeast-3", lat: 34.7, lon: 135.5 },
+]
 
 function Section({
   index,
@@ -943,6 +968,43 @@ export default function Home() {
                 </span>
               </div>
             ))}
+          </div>
+        </Section>
+        <Section index="33" title="Dot Globe" name="dot-globe">
+          <div className="grid w-full items-center gap-6 lg:grid-cols-[auto_1fr]">
+            <DotGlobe size={360} markers={AWS_REGIONS} initialLon={-77} initialLat={30} />
+            <div className="flex max-w-md flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#4A5054]">
+                  Region Status
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#5A6065]">
+                  {AWS_REGIONS.length} regions monitored
+                </span>
+              </div>
+              <div className="flex items-center justify-between border border-destructive/45 bg-destructive/5 px-3 py-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-destructive">
+                  us-east-1
+                </span>
+                <StatusBadge variant="critical" dot>
+                  Incident
+                </StatusBadge>
+              </div>
+              {["eu-central-1", "ap-northeast-1", "us-west-2"].map((c) => (
+                <div
+                  key={c}
+                  className="flex items-center justify-between border border-border px-3 py-2"
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#C8CCCE]">
+                    {c}
+                  </span>
+                  <StatusBadge variant="patrol">Operational</StatusBadge>
+                </div>
+              ))}
+              <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#4A5054]">
+                Drag to rotate — wheel to zoom
+              </span>
+            </div>
           </div>
         </Section>
       </main>
