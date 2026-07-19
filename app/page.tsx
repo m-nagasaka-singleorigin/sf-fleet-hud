@@ -116,7 +116,7 @@ import {
   HudAvatarStatus,
   HudAvatarRank,
 } from "@/registry/hud/hud-avatar"
-import { HudSlider } from "@/registry/hud/hud-slider"
+import { SliderDemo } from "@/components/slider-demo"
 import { OtpDemo } from "@/components/otp-demo"
 import { ComboboxDemo } from "@/components/combobox-demo"
 import { CopyCommand } from "@/components/copy-command"
@@ -740,22 +740,7 @@ export default function Home() {
         </Section>
 
         <Section index="25" title="Slider" name="hud-slider">
-          <div className="flex w-full max-w-sm flex-col gap-8">
-            <div>
-              <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
-                <span>Scan Interval</span>
-                <span className="text-primary">4.0S</span>
-              </div>
-              <HudSlider defaultValue={[40]} className="mt-2" />
-            </div>
-            <div>
-              <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-[#6E7478]">
-                <span>Ping Threshold (Range)</span>
-                <span className="text-primary">08 — 42MS</span>
-              </div>
-              <HudSlider defaultValue={[16, 68]} className="mt-2" />
-            </div>
-          </div>
+          <SliderDemo />
         </Section>
 
         <Section index="26" title="Calendar" name="hud-calendar">
