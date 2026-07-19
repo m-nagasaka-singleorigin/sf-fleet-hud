@@ -30,5 +30,15 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build registry
         run: pnpm registry:build
+      # The build above regenerates public/r/*.json. If that changes anything,
+      # the committed JSON was stale and consumers would install an older
+      # component than the source in this repo.
+      - name: Check registry output is up to date
+        run: |
+          if ! git diff --quiet -- public/r; then
+            echo "::error::public/r is out of date — run 'pnpm registry:build' and commit the result."
+            git diff --stat -- public/r
+            exit 1
+          fi
       - name: Build site
         run: pnpm build
