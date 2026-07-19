@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "hud",
+  "name": "sf-fleet-hud",
   "homepage": "https://sf-fleet-hud.vercel.app",
   "items": [
     {
