@@ -1,4 +1,5 @@
 import * as React from "react"
+import { cn } from "@/lib/utils"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
 import { HudButton } from "@/registry/hud/hud-button"
 import {
@@ -117,6 +118,15 @@ import {
   HudAvatarRank,
 } from "@/registry/hud/hud-avatar"
 import { SliderDemo } from "@/components/slider-demo"
+import {
+  HudH1,
+  HudH2,
+  HudH3,
+  HudH4,
+  HudH5,
+  HudH6,
+  HudBody,
+} from "@/registry/hud/hud-typography"
 import { OtpDemo } from "@/components/otp-demo"
 import { ComboboxDemo } from "@/components/combobox-demo"
 import { CopyCommand } from "@/components/copy-command"
@@ -167,9 +177,9 @@ export default function Home() {
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
           Registry // Component Catalog
         </p>
-        <h1 className="font-sans text-4xl font-bold uppercase tracking-[0.08em]">
-          SF Fleet HUD
-        </h1>
+        <HudH1>
+          SF Fleet HUD<span className="text-primary">_</span>
+        </HudH1>
         <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
           Dark sci-fi fleet-ops UI kit for shadcn/ui. Monochrome + orange
           accent, radius 0, condensed sans + terminal mono.
@@ -867,6 +877,43 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </Section>
+        <Section index="32" title="Typography" name="hud-typography">
+          <div className="flex w-full flex-col">
+            {(
+              [
+                [<HudH1 key="1">Tactical Command<span className="text-primary">_</span></HudH1>, "H1 — 44 / 700 / LS .08EM"],
+                [<HudH2 key="2" index="01">Sector Overview</HudH2>, "H2 — 30 / 600 / LS .10EM"],
+                [<HudH3 key="3">Unit Deployment Status</HudH3>, "H3 — 22 / 600 / LS .12EM"],
+                [<HudH4 key="4">Panel Heading</HudH4>, "H4 — 16 / 500 / LS .14EM"],
+                [<HudH5 key="5">Group Overline — Mono</HudH5>, "H5 — 11 MONO / LS .20EM"],
+                [<HudH6 key="6">Field Label / Micro Heading</HudH6>, "H6 — 10 MONO / LS .18EM"],
+                [
+                  <HudBody key="b" className="max-w-[560px]">
+                    Body text uses Saira Condensed at 15px with relaxed leading.
+                    Inline emphasis is{" "}
+                    <span className="font-medium text-foreground">weight 500 in foreground</span>,
+                    data fragments switch to{" "}
+                    <span className="font-mono text-xs text-primary">MONO ACCENT</span>.
+                  </HudBody>,
+                  "BODY — 15 / 400 / LH 1.6",
+                ],
+              ] as const
+            ).map(([el, spec], i, arr) => (
+              <div
+                key={i}
+                className={cn(
+                  "grid grid-cols-[1fr_auto] items-baseline gap-6 py-3",
+                  i < arr.length - 1 && "border-b border-[#16181B]"
+                )}
+              >
+                {el}
+                <span className="text-right font-mono text-[8px] tracking-[0.12em] text-[#4A5054]">
+                  {spec}
+                </span>
+              </div>
+            ))}
           </div>
         </Section>
       </main>

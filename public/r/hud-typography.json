@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-typography",
+  "type": "registry:ui",
+  "title": "HUD Typography",
+  "description": "Heading scale H1-H6 + body: condensed sans headings, mono overline/micro labels, accent index and tick.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/hud/hud-typography.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction HudH1({ className, ...props }: React.ComponentProps<\"h1\">) {\n  return (\n    <h1\n      className={cn(\n        \"font-sans text-[44px] leading-[1.05] font-bold uppercase tracking-[0.08em] text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n// Optional mono index (\"01\", \"02\", …) rendered before the section title.\nfunction HudH2({\n  className,\n  index,\n  children,\n  ...props\n}: React.ComponentProps<\"h2\"> & { index?: string }) {\n  return (\n    <h2\n      className={cn(\n        \"flex items-baseline gap-3 font-sans text-[30px] leading-[1.1] font-semibold uppercase tracking-[0.1em] text-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {index && <span className=\"font-mono text-xs text-primary\">{index}</span>}\n      {children}\n    </h2>\n  )\n}\n\nfunction HudH3({ className, ...props }: React.ComponentProps<\"h3\">) {\n  return (\n    <h3\n      className={cn(\n        \"font-sans text-[22px] leading-[1.15] font-semibold uppercase tracking-[0.12em] text-[#C8CCCE]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n// Panel heading with a 10px accent tick; disable via tick={false}.\nfunction HudH4({\n  className,\n  tick = true,\n  children,\n  ...props\n}: React.ComponentProps<\"h4\"> & { tick?: boolean }) {\n  return (\n    <h4\n      className={cn(\n        \"flex items-center gap-2.5 font-sans text-base leading-[1.2] font-medium uppercase tracking-[0.14em] text-[#C8CCCE]\",\n        className\n      )}\n      {...props}\n    >\n      {tick && <span aria-hidden className=\"h-px w-2.5 bg-primary\" />}\n      {children}\n    </h4>\n  )\n}\n\nfunction HudH5({ className, ...props }: React.ComponentProps<\"h5\">) {\n  return (\n    <h5\n      className={cn(\n        \"font-mono text-[11px] leading-[1.3] font-normal uppercase tracking-[0.2em] text-primary\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n// Catalog spec is 9px; bumped to 10px for legibility.\nfunction HudH6({ className, ...props }: React.ComponentProps<\"h6\">) {\n  return (\n    <h6\n      className={cn(\n        \"font-mono text-[10px] leading-[1.3] font-normal uppercase tracking-[0.18em] text-[#6E7478]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction HudBody({ className, ...props }: React.ComponentProps<\"p\">) {\n  return (\n    <p\n      className={cn(\n        \"font-sans text-[15px] leading-[1.6] font-normal tracking-[0.04em] text-[#9AA0A4]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { HudH1, HudH2, HudH3, HudH4, HudH5, HudH6, HudBody }\n",
+      "type": "registry:ui"
+    }
+  ]
+}

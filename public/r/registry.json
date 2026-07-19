@@ -720,6 +720,21 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "hud-typography",
+      "type": "registry:ui",
+      "title": "HUD Typography",
+      "description": "Heading scale H1-H6 + body: condensed sans headings, mono overline/micro labels, accent index and tick.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/hud/hud-typography.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
